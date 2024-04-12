@@ -96,6 +96,7 @@ form {
     padding-top: 2px;
     border-bottom-right-radius: 7px;
     border-top-right-radius: 7px;
+    height: 52px;
 }
 
 .half .contents .form-group.last,
@@ -108,6 +109,7 @@ form {
     margin-top: 16px;
     border-bottom-right-radius: 7px;
     border-top-right-radius: 7px;
+    height: 52px;
 }
 
 .half .contents .form-group label,
@@ -125,6 +127,7 @@ form {
     padding: 0px;
     font-size: 16px;
     border-radius: 0;
+    background-color: transparent;
 }
 
 .half .contents .form-control:active,
@@ -141,6 +144,7 @@ form {
 .form-control:-webkit-autofill:focus,
 .form-control:-webkit-autofill:active {
     -webkit-box-shadow: 0 0 0 30px #191a1f inset !important;
+    caret-color: white;
 }
 
 .form-control:-webkit-autofill {
@@ -269,4 +273,23 @@ form {
 
 .caption {
     margin-top: 23px;
+}
+
+#rememberDiv,
+#switch {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#loginBtn {
+    width: 100%;
+}
+
+.form-control::placeholder {
+    color: rgb(134, 132, 132);
+}
+
+a:hover{
+    color: #12a5e4;
 }

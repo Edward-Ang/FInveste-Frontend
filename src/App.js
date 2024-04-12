@@ -15,8 +15,10 @@ function App() {
         username,
         password,
       });
-      if (response.data.message === "Login successful") {
+      if (response.data.message === "success") {
         // Redirect to the home page upon successful login
+        setMessage(response.data.message);
+        alert(response.data.message);
         navigate("/login");
       } else {
         alert("Login failed");
@@ -24,7 +26,7 @@ function App() {
     } catch (error) {
       console.error("Login error:", error);
       alert("Login failed");
-      setMessage("Login failed");
+      setMessage("warning");
     }
   };
 
