@@ -4,16 +4,16 @@ import { useNavigate } from 'react-router-dom';
 import './css/Login.css'
 import './fonts/icomoon/style.css'
 
-function Login() {
+function Signup() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [message, setMessage] = useState('');
     const navigate = useNavigate();
 
-    const handleLogin = async (e) => {
+    const handleSignup = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://localhost:5000/api/login', {
+            const response = await axios.post('http://localhost:5000/api/signup', {
                 username,
                 password,
             });
@@ -22,10 +22,11 @@ function Login() {
                 // Redirect to the home page upon successful login
                 navigate('/home');
             } else {
-                alert('Login failedddd');
+                alert('Signup failedddd');
             }
         } catch (error) {
-            console.error('Login error:', error);
+            console.error('Signup error:', error);
+            alert(error);
             setMessage(error);
         }
     };
@@ -54,39 +55,35 @@ function Login() {
     return (
         <div className="d-lg-flex half">
             <div className="bg order-1 order-md-2" style={{
-                backgroundImage: `url('/bg0.png')`,
+                backgroundImage: `url('/bg1.png')`,
             }}></div>
             <div className="contents order-2 order-md-1">
                 <div className="col-md-7">
-                    <h3>Login to <strong>FInvesté</strong></h3>
+                    <h3>Sign up for <strong>FInvesté</strong></h3>
                     <p className="mb-4">Unlock Your Investment Potential with Our Advanced Stock Screener.</p>
-                    <form onSubmit={handleLogin}>
+                    <form id="registerForm" onSubmit={handleSignup}>
                         <div className="form-group first">
                             <label htmlFor="username">Username</label>
-                            <input type="email" className="form-control" placeholder="your-email@gmail.com" name="username" id="username" value={username} onChange={(e) => setUsername(e.target.value)} required></input>
+                            <input type="email" className="form-control" placeholder="your-email@gmail.com" id="username" name="username" onChange={(e) => setUsername(e.target.value)} required></input>
                         </div>
-
                         <div className="form-group last mb-3">
                             <label htmlFor="password">Password</label>
-                            <input type="password" className="form-control" placeholder="your password" name="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)} required></input>
+                            <input type="password" className="form-control" placeholder="your password" id="password" name="password" onChange={(e) => setPassword(e.target.value)} required></input>
                         </div>
 
-                        <div className="d-flex mb-5 align-items-center" id='rememberDiv'>
-                            <label className="control control--checkbox mb-0"><span className="caption">Remember me</span>
-                                <input type="checkbox" defaultChecked="checked" name="remember_me" />
-                                <div className="control__indicator"></div>
+                        <div className="d-flex mb-5 align-items-center">
+                            <label className="control control--checkbox mb-0"><span className="caption"></span>
                             </label>
-                            <span className="ml-auto"><a href="/reset" className="forgot-pass">Forgot Password</a></span>
                         </div>
 
                         {message && renderMessageDiv()}
+   
+                        <input type="submit" value="Sign Up" className="btn btn-block btn-primary" id='signupBtn'></input>
 
-                        <input type="submit" value="Log In" className="btn btn-block btn-primary" id='loginBtn'></input>
-
-                        <div className="d-flex align-items-center" id="switch">
-                            <span className="caption">Don't have an account?</span>
-                            <span className="ml-auto"><a href='/signup' className="switch-pass">Sign up here</a></span>
-                        </div>
+                            <div className="d-flex align-items-center" id="switch">
+                                <span className="caption">Already have an account?</span>
+                                <span className="ml-auto"><a href='/login' className="switch-pass">Login here</a></span>
+                            </div>
                     </form>
                 </div>
             </div>
@@ -94,4 +91,4 @@ function Login() {
     );
 }
 
-export default Login;
+export default Signup;

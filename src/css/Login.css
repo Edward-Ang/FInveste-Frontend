@@ -282,7 +282,7 @@ form {
     align-items: center;
 }
 
-#loginBtn {
+#loginBtn, #signupBtn {
     width: 100%;
 }
 
@@ -292,4 +292,5 @@ form {
 
 a:hover{
     color: #12a5e4;
+    cursor: pointer;
 }
