@@ -1,30 +1,30 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function App() {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [message, setMessage] = useState('');
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [message, setMessage] = useState("");
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:5000/api/login', {
+      const response = await axios.post("http://localhost:5000/api/login", {
         username,
         password,
       });
-      if (response.data.message === 'Login successful') {
+      if (response.data.message === "Login successful") {
         // Redirect to the home page upon successful login
-        navigate('/home');
+        navigate("/login");
       } else {
-        alert('Login failed');
+        alert("Login failed");
       }
     } catch (error) {
-      console.error('Login error:', error);
-      alert('Login failed');
-      setMessage('Login failed');
+      console.error("Login error:", error);
+      alert("Login failed");
+      setMessage("Login failed");
     }
   };
 
