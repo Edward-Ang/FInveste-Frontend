@@ -60,7 +60,7 @@ function Login() {
     return (
         <div className="d-lg-flex half">
             <div className="bg order-1 order-md-2" style={{
-                backgroundImage: `url('/bg0.png')`,
+                backgroundImage: `url('/images/bg0.png')`,
             }}></div>
             <div className="contents order-2 order-md-1">
                 <div className="col-md-7">

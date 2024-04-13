@@ -55,7 +55,7 @@ function Signup() {
     return (
         <div className="d-lg-flex half">
             <div className="bg order-1 order-md-2" style={{
-                backgroundImage: `url('/bg1.png')`,
+                backgroundImage: `url('/images/bg1.png')`,
             }}></div>
             <div className="contents order-2 order-md-1">
                 <div className="col-md-7">
