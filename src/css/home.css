@@ -1,231 +1,65 @@
-:root {
-    --arrow-icon: url(https://upload.wikimedia.org/wikipedia/commons/9/9d/Caret_down_font_awesome_whitevariation.svg);
-    --red: rgb(255, 37, 74);
-    --blue: #3c7efc;
-    --purple: #864af9;
-    --white: #fbfdf7;
-    --font_white: #d5d6d7;
-    --outter_black: #191a1f;
-    --card_black: #161b22;
-    --border_gray: #35363c;
-    --arrow-bg: rgba(255, 255, 255, 0.3);
-    --select-bg: rgba(255, 255, 255, 0.2);
-}
-
-header {
-    background-color: var(--card_black);
-    margin: 8px 8px 10px 8px;
-    border-radius: 8px;
-    height: 68px;
-    width: 98.85%;
-    padding-top: 14px;
-    justify-content: center;
-    border: 2px solid var(--border_gray);
-}
-
-.headerbar {
-    height: 36px;
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 8px;
-    margin-left: 8px;
-    margin-right: 8px;
-}
-
-.headerLogo {
-    display: flex;
-    padding-left: 4.2%;
-    justify-content: center;
-    align-items: center;
-}
-
-.headerLogo img {
-    margin-right: 8px;
-    width: 39px;
-    height: 39px;
-}
-
-.headerbar a {
-    font-size: 24px;
-    text-decoration: none;
-    color: var(--white);
-}
-
-.headerIcon {
-    display: flex;
-    padding-right: 6%;
-    justify-content: space-between;
-}
-
-#dropdownContent {
-    display: flex;
-    justify-content: space-between;
-}
-
-#dropdownButton {
-    display: none;
-    background-color: transparent;
-    box-shadow: none;
-    border: none;
-    width: fit-content;
-    justify-content: right;
-    align-items: right;
-    color: var(--white);
-}
-
-#accountButton {
-    height: 36px;
-    padding: 2px 12px 3px 12px;
-    border-radius: 10px;
-    border-color: var(--blue);
-    background-color: transparent;
-    color: var(--white);
-    box-shadow: none;
-    border-style: solid;
-    border-width: 1px;
-    display: inline-block;
-}
-
-#watchlistButton {
-    height: auto;
-    color: var(--white);
-    font-size: 16px;
-    padding-top: 5px;
-    padding-bottom: 3px;
-    padding-left: 8px;
-    padding-right: 8px;
-    transition: all 85ms ease-out;
-}
-
-#watchlistButtonLi {
-    margin-right: 23%;
-}
-
-ul {
-    height: max-content;
-}
-
-li {
-    height: fit-content;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-#watchlistButton:hover {
-    border-bottom: 3px solid var(--blue);
-}
-
-.spinnerBg {
+.confirmOverlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.323);
-    display: none;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
     justify-content: center;
     align-items: center;
     z-index: 1;
 }
 
-.spinner {
-    display: inline-block;
-    width: 80px;
-    height: 80px;
+.confirmPopup {
+    background-color: var(--card_black);
+    padding: 15px;
+    border-radius: 5px;
+    border: 2px solid var(--border_gray);
+    width: 15%;
+    height: 20%;
+    margin-bottom: 2.5%;
 }
 
-.spinner:after {
-    content: " ";
-    display: block;
-    width: 50px;
-    /* Adjusted size */
-    height: 50px;
-    /* Adjusted size */
-    border: 6px solid var(--blue);
-    border-color: var(--blue) transparent var(--purple) transparent;
-    border-radius: 50%;
-    animation: spinner 1.2s linear infinite;
+.confirmWrapper {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
-@keyframes spinner {
-    to {
-        transform: rotate(360deg);
-    }
-}
-
-.searchbar {
-    padding: 0px;
-    margin-left: 3%;
-    width: 43%;
-    justify-content: center;
-    align-items: center;
-}
-
-#filterInput,
-#filterScreenInput {
-    padding: 12px 24px;
-    width: 100%;
-    height: 36px;
-    border-radius: 20px;
-    background-color: transparent;
-    border-color: var(--blue);
-    border-style: solid;
-    border-width: 1px;
-    font-size: 14px;
-    line-height: normal;
-    color: var(--blue);
-    transition: transform 250ms ease-in-out;
-
-    &::placeholder {
-        color: color(#c9c9c9 a(0.8));
-        text-transform: uppercase;
-        letter-spacing: 1.5px;
-        padding-left: 15px;
-    }
-
-    &:hover,
-    &:focus {
-        padding: 12px 0;
-        outline: 0;
-        border: 1px solid transparent;
-        border-bottom: 1px solid var(--blue);
-        border-radius: 0;
-        background-position: 100% center;
-    }
-
-    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='25' height='25' viewBox='0 0 24 24'%3E%3Cpath fill='%23ffffff' d='M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z'/%3E%3Cpath d='M0 0h24v24H0z' fill='none'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-size: 20px 20px;
-    background-position: 95% center;
-    border-radius: 50px;
-    backface-visibility: hidden;
-    transform-style: preserve-3d;
-}
-
-#watchlistName {
-    font-size: 24px;
-    font-weight: 600;
+.confirmHeader {
     color: var(--white);
+    display: flex;
+    text-align: left;
 }
 
-/* width */
-::-webkit-scrollbar {
-    width: 10px;
+.confirmButtons {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
 }
 
-/* Track */
-::-webkit-scrollbar-track {
-    background: var(--card_black);
+.cancelButton {
+    background-color: var(--red);
+    box-shadow: none;
+    border-radius: 3px;
+    border: none;
+    color: var(--white);
+    padding-left: 12px;
+    padding-right: 12px;
+    width: 79px;
+    height: 32px;
 }
 
-/* Handle */
-::-webkit-scrollbar-thumb {
-    background: var(--border_gray);
-    border-radius: 10px;
-}
-
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-    background: var(--border_gray);
+.confirmButton {
+    color: var(--white);
+    padding-left: 12px;
+    padding-right: 12px;
+    width: 79px;
+    height: 32px;
+    background-color: var(--blue);
+    box-shadow: none;
+    border-radius: 3px;
+    border: none;
 }

@@ -1,0 +1,426 @@
+html {
+    background-color: var(--outter_black);
+    width: auto;
+}
+
+body {
+    background-color: var(--outter_black);
+    height: 98.8vh;
+    width: auto;
+}
+
+.header {
+    font-size: 50px;
+    font-family: Helvetica, Arial, sans-serif;
+    font-weight: 500;
+    text-align: left;
+    padding-left: 12px;
+    padding-bottom: 12px;
+}
+
+.body {
+    background-color: var(--outter_black);
+    height: auto;
+}
+
+.bodyWrapper {
+    width: auto;
+    height: 100%;
+    display: flex;
+    margin: 10px;
+    margin-bottom: 0px;
+}
+
+.rightContainer {
+    width: 77%;
+    height: 100%;
+    margin-left: 10px;
+}
+
+.leftContainer {
+    width: 23%;
+    height: max-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.card {
+    height: 42%;
+    width: auto;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    padding: 10px;
+    background-size: 100% 100%;
+    border: none;
+    justify-content: space-between;
+    background-image: linear-gradient(135deg, rgb(34, 194, 239), rgb(150, 47, 204));
+}
+
+.cardHead {
+    height: fit-content;
+    border-radius: 8px;
+    color: var(--white);
+    padding: 10px 10px 0px 10px;
+}
+
+.cardBody {
+    height: fit-content;
+    border-radius: 8px;
+    color: #ffffffaf;
+    padding: 0px 10px 10px 10px;
+    font-size: 14px;
+}
+
+.cardBody p{
+    font-size: 15px;
+    color:#ffffffb0;
+}
+
+.cardButton {
+    text-align: right;
+}
+
+#moreButton {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 6px 12px 6px 12px;
+    color: var(--white);
+    font-weight: bold;
+}
+
+#moreButton:hover {
+    background: rgba(255, 255, 255, 0.384);
+}
+
+#moreLink {
+    text-decoration: none;
+    color: var(--white);
+}
+
+.wthCard {
+    background-color: var(--card_black);
+    height: 100%;
+    border: 2px solid var(--border_gray);
+    border-radius: 8px;
+    padding: 12px 18px 12px 18px;
+}
+
+.favHead {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    color: var(--white);
+}
+
+.favHead h3 {
+    font-size: 24px;
+    margin: 0px;
+}
+
+#bookmarkIcon {
+    font-size: 24px;
+    color: var(--blue);
+}
+
+.favBody {
+    margin-top: 10px;
+    overflow-y: scroll;
+    height: 38.9vh;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0px;
+}
+
+.utility {
+    display: flex;
+    justify-content: space-between;
+    border-radius: 8px 8px 0px 0px;
+    padding: 18px;
+    padding-bottom: 10px;
+    width: auto;
+    background-color: var(--card_black);
+    border: 2px solid var(--border_gray);
+    border-bottom: none;
+}
+
+.utilityHeading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--white);
+    margin-right: 4px;
+}
+
+.utilityBtn {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: min-content;
+}
+
+.Button {
+    color: var(--white);
+    padding-left: 12px;
+    padding-right: 12px;
+    width: 76px;
+    height: 35px;
+    background-color: var(--blue);
+    box-shadow: none;
+    border-radius: 8px 8px 8px 8px;
+    border: none;
+    margin-right: 4px;
+}
+
+#downloadButton {
+    width: 76px;
+    height: 35px;
+    border-radius: 8px 8px 8px 8px;
+    box-shadow: none;
+    margin-right: 4px;
+    border: none;
+    color: var(--white);
+    margin-left: 15px;
+    padding: 4px 10px 4px 10px;
+    width: fit-content;
+    background-color: #35363c00;
+}
+
+#downloadButton:hover {
+    background-color: var(--border_gray);
+}
+
+#saveButton {
+    margin-right: 19px;
+}
+
+.tableview {
+    width: auto;
+    padding: 8px 8px 8px 8px;
+    border-radius: 0px 0px 8px 8px;
+    overflow-y: scroll;
+    height: 74.8vh;
+    border: 2px solid var(--border_gray);
+    border-top: none;
+    background-color: var(--card_black);
+}
+
+#screenTableView,
+#screenUtility {
+    margin: 0px 10px 0px 10px;
+}
+
+th {
+    cursor: pointer;
+    padding: 8px;
+    text-align: center;
+    color: var(--white);
+    border-top: 2px solid var(--border_gray);
+    border-bottom: 2px solid var(--border_gray);
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    letter-spacing: 0.1499px;
+    line-height: 20.02px;
+    background-color: var(--card_black);
+    position: sticky;
+    top: -8.5px;
+}
+
+.thFav {
+    top: 0px;
+}
+
+td {
+    padding: 8px;
+    text-align: center;
+    color: var(--font_white);
+    border-bottom: 1px solid var(--border_gray);
+    font-size: 14px;
+}
+
+.stockCol {
+    /*screen table*/
+    color: var(--purple);
+    text-transform: uppercase;
+    font-weight: bold;
+    text-align: left;
+    padding-left: 8px;
+}
+
+.sb,
+.b {
+    color: rgb(0, 169, 127);
+    font-weight: bold;
+}
+
+.s,
+.ss {
+    color: var(--red);
+    font-weight: bold;
+}
+
+.n {
+    color: var(--blue);
+    font-weight: bold;
+}
+
+th:hover {
+    background-color: #21262d;
+}
+
+.loading-cursor {
+    cursor: progress;
+}
+
+.ticker {
+    width: 22.5%;
+    text-align: center;
+}
+
+.ndcol .tickerword {
+    color: var(--white);
+    margin-right: auto;
+}
+
+.ndcol {
+    padding-left: 3px;
+    padding-right: 16px;
+    display: flex;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.popup {
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.confirmOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+}
+
+.confirmPopup {
+    background-color: var(--card_black);
+    padding: 15px;
+    border-radius: 5px;
+    border: 2px solid var(--border_gray);
+    width: 15%;
+    height: 20%;
+    margin-bottom: 2.5%;
+}
+
+.confirmWrapper {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.confirmHeader {
+    color: var(--white);
+    display: flex;
+    text-align: left;
+}
+
+.confirmButtons {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.cancelButton {
+    background-color: var(--red);
+    box-shadow: none;
+    border-radius: 3px;
+    border: none;
+    color: var(--white);
+    padding-left: 12px;
+    padding-right: 12px;
+    width: 79px;
+    height: 32px;
+}
+
+.confirmButton {
+    color: var(--white);
+    padding-left: 12px;
+    padding-right: 12px;
+    width: 79px;
+    height: 32px;
+    background-color: var(--blue);
+    box-shadow: none;
+    border-radius: 3px;
+    border: none;
+}
+
+.saveFav {
+    background-color: var(--card_black);
+    padding-left: 0px;
+    padding-right: 0px;
+    width: min-content;
+}
+
+.favSpan {
+    color: var(--blue);
+    width: fit-content;
+    height: fit-content;
+}
+
+.stockContainer {
+    display: flex;
+}
+
+.stockLogo {
+    display: flex;
+    margin-right: 8px;
+    justify-content: center;
+    align-items: center;
+}
+
+.stockLogo img {
+    width: 39px;
+    height: 39px;
+    border-radius: 50%;
+    background-color: var(--white);
+}
+
+.stockWrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.stockTicker {
+    font-size: 14px;
+}
+
+.stockName {
+    font-size: 11px;
+    color: var(--font_white);
+}
