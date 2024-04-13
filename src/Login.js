@@ -8,6 +8,7 @@ function Login() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [message, setMessage] = useState('');
+    const [checked, setChecked] = useState(true);
     const navigate = useNavigate();
 
     const handleLogin = async (e) => {
@@ -16,13 +17,14 @@ function Login() {
             const response = await axios.post('http://localhost:5000/api/login', {
                 username,
                 password,
+                checked,
             });
             if (response.data.message === 'success') {
                 setMessage(response.data.message);
                 // Redirect to the home page upon successful login
                 navigate('/home');
             } else {
-                alert('Login failedddd');
+                setMessage(response.data.message);
             }
         } catch (error) {
             console.error('Login error:', error);
@@ -51,6 +53,10 @@ function Login() {
         }
     };
 
+    const toggleChecked = (event) =>{
+        setChecked(event.target.checked);
+    }
+
     return (
         <div className="d-lg-flex half">
             <div className="bg order-1 order-md-2" style={{
@@ -73,13 +79,14 @@ function Login() {
 
                         <div className="d-flex mb-5 align-items-center" id='rememberDiv'>
                             <label className="control control--checkbox mb-0"><span className="caption">Remember me</span>
-                                <input type="checkbox" defaultChecked="checked" name="remember_me" />
+                                <input type="checkbox" checked={checked} onChange={toggleChecked} name="remember_me" />
                                 <div className="control__indicator"></div>
                             </label>
                             <span className="ml-auto"><a href="/reset" className="forgot-pass">Forgot Password</a></span>
                         </div>
 
                         {message && renderMessageDiv()}
+                        <p>The checkbox is {checked ? 'True' : 'False'}.</p>
 
                         <input type="submit" value="Log In" className="btn btn-block btn-primary" id='loginBtn'></input>
 

@@ -17,10 +17,10 @@ function Signup() {
                 username,
                 password,
             });
-            if (response.data.message === 'success') {
+            if (response.data.message === 'User created successfully') {
                 setMessage(response.data.message);
                 // Redirect to the home page upon successful login
-                navigate('/home');
+                navigate('/login');
             } else {
                 alert('Signup failedddd');
             }
