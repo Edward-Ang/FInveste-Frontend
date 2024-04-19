@@ -11,6 +11,8 @@ function Login() {
     const [checked, setChecked] = useState(true);
     const navigate = useNavigate();
 
+    axios.defaults.withCredentials = true;
+
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
@@ -86,7 +88,6 @@ function Login() {
                         </div>
 
                         {message && renderMessageDiv()}
-                        <p>The checkbox is {checked ? 'True' : 'False'}.</p>
 
                         <input type="submit" value="Log In" className="btn btn-block btn-primary" id='loginBtn'></input>
 

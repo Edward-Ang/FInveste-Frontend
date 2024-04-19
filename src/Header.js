@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import './css/header.css';
 
-const Header = () => {
+const Header = ({ searchInput, setSearchInput }) => {
     const [showConfirmLogout, setShowConfirmLogout] = useState(false);
     const navigate = useNavigate();
 
@@ -13,8 +15,19 @@ const Header = () => {
         setShowConfirmLogout(false); // Hide the logout confirmation overlay
     };
 
-    const handleConfirmLogout = () => {
-        navigate('/login');
+    const handleConfirmLogout = async () => {
+        try {
+            const response = await axios.get('http://localhost:5000/api/logout');
+
+            if (response.data.message === 'Logged out') {
+                // Redirect response from the server
+                navigate('/login');
+            } else {
+                console.log('Unexpected response status:', response.message);
+            }
+        } catch (error) {
+            console.log('Error logout: ', error);
+        }
     };
 
     return (
@@ -25,7 +38,7 @@ const Header = () => {
                     <a href="/home">FInvesté</a>
                 </div>
                 <div className="searchbar" onClick={(event) => event.stopPropagation()}>
-                    <input type="text" autoComplete="off" id="filterInput" placeholder="Search" />
+                    <input type="text" autoComplete="off" id="filterInput" placeholder="Search" value={searchInput} onChange={(e) => setSearchInput(e.target.value)} />
                 </div>
                 <div className="headerIcon" id="dropdownMenu">
                     <button id="dropdownButton"><i className="fa-solid fa-bars"></i></button>
