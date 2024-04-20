@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
 import './css/home.css';
 import './css/main.css';
@@ -11,8 +13,8 @@ function Home() {
     const [stocks, setStocks] = useState([]);
     const [showSaveOverlay, setShowSaveOverlay] = useState(false);
     const [showFilterOverlay, setShowFilterOverlay] = useState(false);
+    const [triggerEffect, setTriggerEffect] = useState(false);
     const [searchInput, setSearchInput] = useState('');
-    const [name, setName] = useState('');
     const [saveName, setSaveName] = useState('');
     const navigate = useNavigate();
 
@@ -30,27 +32,19 @@ function Home() {
         };
 
         getTable();
-    }, []); // The empty array means this effect runs once after the initial render
 
-    const fetchSession = async () => {
-        try {
-            const response = await axios.get('http://localhost:5000/get-session');
-            if(response.data.valid){
-                setName(response.data.username);
-            }else{
-                navigate('/login');
-            }
-        } catch (error) {
-            console.error('Error fetching session:', error);
+        if (triggerEffect) {
+            getTable(); // Trigger the effect if triggerEffect is true
+            setTriggerEffect(false); // Reset triggerEffect to false after triggering
         }
-    };
-
-    fetchSession();
+    }, [navigate, triggerEffect]);
 
     const filteredStocks = stocks.filter(stock =>
         stock.Stock.toLowerCase().includes(searchInput.toLowerCase()) ||
         stock.Name.toLowerCase().includes(searchInput.toLowerCase())
     );
+
+    const filteredStocksBook = stocks.filter(stock => stock.Book === 1);
 
     const handleFilter = () => {
         setShowFilterOverlay(true);
@@ -63,24 +57,65 @@ function Home() {
     const handleCancelOverlay = () => {
         setShowSaveOverlay(false);
         setShowFilterOverlay(false);
+        setSaveName('');
     }
 
-    const handleSaveWatchlist = async () => {
+    const handleSaveWatchlist = async (event) => {
+        event.preventDefault();
+        try {
+            const response = await axios.get('http://localhost:5000/api/getUserId');
+            const userId = response.data.userId;
+
+            if (userId) {
+                console.log(response.data.userId);
+                try {
+                    const response = await axios.post('http://localhost:5000/api/save_watchlist', {
+                        saveName,
+                        userId,
+                        filteredStocks,
+                    });
+                    console.log(response.data.message);
+                    if (response.data.message === 'Watchlist inserted successfully') {
+                        setShowSaveOverlay(false);
+                        setSaveName('');
+                        toast.success('Watchlist saved successfully !', {
+                            position: 'bottom-left'
+                        });
+                    } else {
+                        toast.error('Watchlist name exist !', {
+                            position: 'bottom-left'
+                        });
+                    }
+                } catch (error) {
+                    console.log('Error save watchlist: ', error);
+                }
+            } else {
+                console.log('userId not exist.');
+            }
+
+        } catch (error) {
+            console.log('Error get userId: ', error);
+        }
+    }
+
+    const handleBookmark = (stock) => {
+        toast.success(stock, {
+            position: 'bottom-left'
+        });
         try{
-            const response = await axios.post('http://localhost:5000/api/save_watchlist', {
-                saveName,
+            const response = axios.post('http://localhost:5000/api/toggleBookmark', {
+                stock,
             });
-
-            console.log(response.data.message);
-
+            
         }catch(error){
-            console.log('Error save watchlist: ', error);
+
         }
     }
 
     return (
         <>
             <Header searchInput={searchInput} setSearchInput={setSearchInput} />
+            <ToastContainer />
             {showSaveOverlay && (
                 <div className="saveOverlay" id="saveOverlay">
                     <div className="savePopup">
@@ -242,6 +277,12 @@ function Home() {
                                         <th className="thFav">Stock</th>
                                         <th className="thFav">Rating</th>
                                     </tr>
+                                    {filteredStocksBook.map((stock, index) => (
+                                        <tr key={index}>
+                                            <td className="thFav">{stock.Stock}</td>
+                                            <td className="thFav">{stock.Rating}</td>
+                                        </tr>
+                                    ))}
                                 </tbody>
                             </table>
                         </div>
@@ -250,7 +291,7 @@ function Home() {
                 <div className="rightContainer">
                     <div className="utility">
                         <div className="utilityHeading">
-                            <span id="watchlistName">{name}Stock screener</span>
+                            <span id="watchlistName">Stock screener</span>
                             <span className="badge text-bg-info" style={{ fontSize: 'small', margin: '3px 0px 0px 8px' }}>MY</span>
                         </div>
                         <div className="utilityBtn">
@@ -289,7 +330,7 @@ function Home() {
                                             <span
                                                 className="favSpan"
                                                 data-value={stock.Stock}
-                                                onClick={() => { }}
+                                                onClick={() => {handleBookmark(stock.Stock)}}
                                             >
                                                 <i className={stock.Book === 0 ? "bi bi-bookmark" : "bi bi-bookmark-fill"} />
                                             </span>
