@@ -98,17 +98,19 @@ function Home() {
         }
     }
 
-    const handleBookmark = (stock) => {
-        toast.success(stock, {
-            position: 'bottom-left'
-        });
+    const handleBookmark = async (stock) => {
         try{
-            const response = axios.post('http://localhost:5000/api/toggleBookmark', {
+            const response = await axios.post('http://localhost:5000/api/toggleBookmark', {
                 stock,
             });
             
+            if(response.data.message === 'Toggle success'){
+                setTriggerEffect(true);
+            }else{
+                console.log('toggle failed');
+            }
         }catch(error){
-
+            console.log('Error toggle: ', error);
         }
     }
 
