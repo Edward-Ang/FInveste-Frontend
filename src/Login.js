@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './css/Login.css'
@@ -12,6 +12,23 @@ function Login() {
     const navigate = useNavigate();
 
     axios.defaults.withCredentials = true;
+
+    useEffect(() => {
+        const checkRememberMeCookie = () => {
+            const cookies = document.cookie.split(';');
+            const rememberMeCookie = cookies.find(item => item.trim().startsWith('remember_me_client='));
+
+            console.log(rememberMeCookie);
+            if (rememberMeCookie) {
+                navigate('/home');
+            } else {
+                console.log('The remember_me cookie is not set.');
+            }
+        };
+
+        // Call the function to check for the cookie
+        checkRememberMeCookie();
+    }, []);
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -55,7 +72,7 @@ function Login() {
         }
     };
 
-    const toggleChecked = (event) =>{
+    const toggleChecked = (event) => {
         setChecked(event.target.checked);
     }
 

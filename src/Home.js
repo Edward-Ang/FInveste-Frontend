@@ -8,45 +8,17 @@ import './css/filter.css';
 import Header from './Header';
 
 function Home() {
-    const navigate = useNavigate();
     const [stocks, setStocks] = useState([]);
     const [showSaveOverlay, setShowSaveOverlay] = useState(false);
     const [showFilterOverlay, setShowFilterOverlay] = useState(false);
     const [searchInput, setSearchInput] = useState('');
     const [name, setName] = useState('');
     const [saveName, setSaveName] = useState('');
+    const navigate = useNavigate();
 
     axios.defaults.withCredentials = true;
 
     useEffect(() => {
-        // Check for the remember_me cookie
-        const checkRememberMeCookie = () => {
-            if (document.cookie.split(';').some(item => item.trim().startsWith('remember_me='))) {
-                console.log('The remember_me cookie is set.');
-            } else {
-                console.log('The remember_me cookie is not set.');
-                navigate('/login');
-            }
-        };
-
-        // Call the function to check for the cookie
-        checkRememberMeCookie();
-
-        const fetchSession = async () => {
-            try {
-                const response = await axios.get('http://localhost:5000/get-session');
-                if(response.data.valid){
-                    setName(response.data.username);
-                }else{
-                    navigate('/login');
-                }
-            } catch (error) {
-                console.error('Error fetching session:', error);
-            }
-        };
-
-        fetchSession();
-
         const getTable = async () => {
             try {
                 const response = await axios.get('http://localhost:5000/api/get_main', { withCredentials: true });
@@ -59,6 +31,21 @@ function Home() {
 
         getTable();
     }, []); // The empty array means this effect runs once after the initial render
+
+    const fetchSession = async () => {
+        try {
+            const response = await axios.get('http://localhost:5000/get-session');
+            if(response.data.valid){
+                setName(response.data.username);
+            }else{
+                navigate('/login');
+            }
+        } catch (error) {
+            console.error('Error fetching session:', error);
+        }
+    };
+
+    fetchSession();
 
     const filteredStocks = stocks.filter(stock =>
         stock.Stock.toLowerCase().includes(searchInput.toLowerCase()) ||
