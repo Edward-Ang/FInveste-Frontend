@@ -281,8 +281,8 @@ function Home() {
                                     </tr>
                                     {filteredStocksBook.map((stock, index) => (
                                         <tr key={index}>
-                                            <td className="thFav">{stock.Stock}</td>
-                                            <td className="thFav">{stock.Rating}</td>
+                                            <td className="favStock">{stock.Stock}</td>
+                                            <td className={getRatingClass(stock.Rating)}><i className={getRatingIcon(stock.Rating)} style={{ fontSize: '20px' }}></i></td>
                                         </tr>
                                     ))}
                                 </tbody>
@@ -366,6 +366,23 @@ function Home() {
             </div>
         </>
     );
+}
+
+function getRatingIcon(rating) {
+    switch (rating) {
+        case "Strong Buy":
+            return 'fa-solid fa-angles-up';
+        case "Buy":
+            return 'fa-solid fa-angle-up';
+        case "Neutral":
+            return 'fa-solid fa-minus';
+        case "Sell":
+            return 'fa-solid fa-angle-down';
+        case "Strong Sell":
+            return 'fa-solid fa-angles-down';
+        default:
+            return '';
+    }
 }
 
 function getRatingClass(rating) {

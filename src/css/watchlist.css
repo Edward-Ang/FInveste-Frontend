@@ -1,0 +1,184 @@
+html {
+    background-color: #191a1f;
+}
+
+body {
+    background-color: #191a1f;
+}
+
+#watchlistWrapper {
+    margin: 8px;
+}
+
+.utility {
+    display: flex;
+    justify-content: space-between;
+    margin: 8px 0px 0px 0px;
+    border-radius: 8px 8px 0px 0px;
+    padding: 18px;
+    padding-bottom: 10px;
+    width: 100%;
+    background-color: var(--card_black);
+    border: 2px solid var(--border_gray);
+    border-bottom: none;
+}
+
+.tableview {
+    margin: 0px 8px 8px 0px;
+    padding: 8px;
+    border-radius: 0px 0px 8px 8px;
+    overflow-y: auto;
+    height: 74vh;
+    border: 2px solid var(--border_gray);
+    border-top: none;
+    background-color: var(--card_black);
+    width: 100%;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0px;
+}
+
+th {
+    cursor: pointer;
+    padding: 8px;
+    text-align: center;
+    color: var(--white);
+    border-top: 2px solid var(--border_gray);
+    border-bottom: 2px solid var(--border_gray);
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    letter-spacing: 0.1499px;
+    line-height: 20.02px;
+    background-color: var(--card_black);
+    position: sticky;
+    top: -8.5px;
+}
+
+td {
+    padding: 8px;
+    text-align: center;
+    color: #d5d6d7;
+    border-bottom: 1px solid var(--border_gray);
+}
+
+tr:hover {
+    background-color: rgba(48, 54, 62, 0.459)
+}
+
+th:hover {
+    background-color: rgb(48, 54, 62)
+}
+
+#dltColumn {
+    width: 15%;
+}
+
+Button {
+    color: var(--white);
+    width: fit-content;
+    height: fit-content;
+    background-color: rgb(255, 37, 37);
+    box-shadow: none;
+    border-radius: 4px 4px 4px 4px;
+    border: none;
+}
+
+.confirmOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+}
+
+.confirmPopup {
+    background-color: var(--card_black);
+    padding: 15px;
+    border-radius: 5px;
+    border: 2px solid var(--border_gray);
+    width: 15%;
+    height: 20%;
+    margin-bottom: 2.5%;
+}
+
+.confirmWrapper {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.confirmHeader {
+    color: var(--white);
+    display: flex;
+    text-align: left;
+}
+
+.confirmButton {
+    color: var(--white);
+    padding-left: 12px;
+    padding-right: 12px;
+    width: 79px;
+    height: 32px;
+    background-color: var(--blue);
+    box-shadow: none;
+    border-radius: 3px;
+    border: none;
+}
+
+.confirmButtons {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.cancelButton {
+    background-color: rgb(227, 51, 51);
+    box-shadow: none;
+    border-radius: 3px;
+    border: none;
+    color: var(--white);
+    padding-left: 12px;
+    padding-right: 12px;
+    width: 79px;
+    height: 32px;
+}
+
+#confirmButton {
+    color: var(--white);
+    padding-left: 12px;
+    padding-right: 12px;
+    width: 79px;
+    height: 32px;
+    background-color: var(--blue);
+    box-shadow: none;
+    border-radius: 2px 2px 2px 2px;
+    border: none;
+}
+
+#wthButton {
+    background-color: rgb(0, 169, 127);
+}
+
+#edtButton {
+    background-color: rgb(72, 121, 255);
+}
+
+#dltButton {
+    background-color: rgb(255, 23, 62);
+}
+
+#dltCell {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 53px;
+}

@@ -35,6 +35,8 @@ body {
     width: 77%;
     height: 100%;
     margin-left: 10px;
+    box-shadow: 0 4px 4px rgba(195, 195, 195, 0.2);
+    border-radius: 8px;
 }
 
 .leftContainer {
@@ -55,6 +57,7 @@ body {
     border: none;
     justify-content: space-between;
     background-image: linear-gradient(135deg, rgb(34, 194, 239), rgb(150, 47, 204));
+    box-shadow: 0 4px 4px rgba(195, 195, 195, 0.2);
 }
 
 .cardHead {
@@ -108,6 +111,7 @@ body {
     border: 2px solid var(--border_gray);
     border-radius: 8px;
     padding: 12px 18px 12px 18px;
+    box-shadow: 0 4px 4px rgba(195, 195, 195, 0.2);
 }
 
 .favHead {
@@ -418,9 +422,17 @@ th:hover {
 
 .stockTicker {
     font-size: 14px;
+    color: var(--purple);
+    font-weight: bold;
 }
 
 .stockName {
     font-size: 11px;
+    color: var(--font_white);
+}
+
+.favStock{
+    font-size: 14px;
+    font-weight: 600;
     color: var(--font_white);
 }
