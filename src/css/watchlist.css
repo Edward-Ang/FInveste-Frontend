@@ -58,6 +58,7 @@ th {
 }
 
 td {
+    font-size: 14px;
     padding: 8px;
     text-align: center;
     color: #d5d6d7;
@@ -181,4 +182,9 @@ Button {
     justify-content: space-around;
     align-items: center;
     height: 53px;
+}
+
+#dltCell Button{
+    width: 33px;
+    height: 33px;
 }

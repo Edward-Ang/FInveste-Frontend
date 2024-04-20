@@ -30,6 +30,10 @@ const Header = ({ searchInput, setSearchInput }) => {
         }
     };
 
+    const handleNavigate = () =>{
+        navigate('/watchlist');
+    };
+
     return (
         <header>
             <div className="headerbar">
@@ -44,7 +48,7 @@ const Header = ({ searchInput, setSearchInput }) => {
                     <button id="dropdownButton"><i className="fa-solid fa-bars"></i></button>
                     <ul id="dropdownContent">
                         <li id="watchlistButtonLi">
-                            <a id="watchlistButton" href="/watchlist">Watchlist</a>
+                            <a id="watchlistButton" onClick={handleNavigate}>Watchlist</a>
                         </li>
                         <li>
                             <button id="accountButton" onClick={handleLogout}>Logout</button>
