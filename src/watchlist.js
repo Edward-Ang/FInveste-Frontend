@@ -10,6 +10,8 @@ function Watchlist() {
     const [searchInput, setSearchInput] = useState('');
     const [watchlists, setWatchlists] = useState([]);
     const [deleteTarget, setDeleteTarget] = useState('');
+    const [renameInput, setRenameInput] = useState('');
+    const [renameTarget, setRenameTarget] = useState('');
     const [showDeleteOverlay, setShowDeleteOverlay] = useState(false);
     const [showRenameOverlay, setShowRenameOverlay] = useState(false);
     const [triggerEffect, setTriggerEffect] = useState(false);
@@ -75,7 +77,39 @@ function Watchlist() {
 
     const handleEdit = async (watchlist) => {
         setShowRenameOverlay(true);
+        setRenameTarget(watchlist);
     };
+
+    const handleRename = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await axios.post('http://localhost:5000/api/rename_watchlist', {
+                renameTarget,
+                renameInput
+            });
+
+            if(response.data.condition === true){
+                console.log(response.data.message);
+                setTriggerEffect(true);
+                setRenameTarget('');
+                setShowRenameOverlay(false);
+                toast.success('Watchlist renamed successfully !', {
+                    position: 'bottom-left'
+                });
+            }else{
+                if(response.data.message === 'Name exist'){
+                    toast.error('This name already exists. Please choose a different name.', {
+                        position: 'bottom-left'
+                    });
+                }
+                console.log(response.data.message);
+            }
+
+        } catch (error) {
+            console.log("Error to rename: ", error);
+        }
+
+    }
 
     return (
         <>
@@ -110,12 +144,12 @@ function Watchlist() {
                                 <div class="renameWrapper">
                                     <div class="renamePrompt">
                                         <h6>Enter the new screen name:</h6>
-                                        <input type="text" autocomplete="off" id="renameInput" name="collection_name" required></input>
+                                        <input type="text" autocomplete="off" id="renameInput" name="collection_name" value={renameInput} onChange={(e) => setRenameInput(e.target.value)} required></input>
                                         <h6 id="renameMsg"><span id="saveIcon"></span>&nbsp;<span id="saveAlert"></span></h6>
                                     </div>
                                     <div class="renameButtons">
                                         <button type="button" class="cancelButton" id="cancelButton" onClick={handleCancelButton}>Cancel</button>
-                                        <input type="submit" class="confirmButton" value="Save" id="saveButton2"></input>
+                                        <input type="submit" class="confirmButton" value="Save" id="saveButton2" onClick={handleRename}></input>
                                     </div>
                                 </div>
                             </form>
