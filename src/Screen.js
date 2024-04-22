@@ -21,7 +21,6 @@ function Screen() {
                     if (response.data) {
                         const fetchedStocks = response.data;
                         setStocks(fetchedStocks);
-                        console.log('frontend', stocks);
                     } else {
                         console.log('No stocks get');
                     }
