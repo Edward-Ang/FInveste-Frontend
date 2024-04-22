@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './css/header.css';
 import './css/watchlist.css';
@@ -15,6 +16,7 @@ function Watchlist() {
     const [showDeleteOverlay, setShowDeleteOverlay] = useState(false);
     const [showRenameOverlay, setShowRenameOverlay] = useState(false);
     const [triggerEffect, setTriggerEffect] = useState(false);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const getWatchlist = async () => {
@@ -73,6 +75,7 @@ function Watchlist() {
     const handleCancelButton = () => {
         setShowDeleteOverlay(false);
         setShowRenameOverlay(false);
+        setRenameInput('');
     };
 
     const handleEdit = async (watchlist) => {
@@ -92,6 +95,7 @@ function Watchlist() {
                 console.log(response.data.message);
                 setTriggerEffect(true);
                 setRenameTarget('');
+                setRenameInput('');
                 setShowRenameOverlay(false);
                 toast.success('Watchlist renamed successfully !', {
                     position: 'bottom-left'
@@ -108,24 +112,27 @@ function Watchlist() {
         } catch (error) {
             console.log("Error to rename: ", error);
         }
-
     }
+
+    const handleView = async (watchlist) => {
+        navigate('/screen', { state: { watchlistId: watchlist } });
+    };
 
     return (
         <>
             <Header searchInput={searchInput} setSearchInput={setSearchInput} />
             <ToastContainer />
             {showDeleteOverlay && (
-                <div class="confirmOverlay" id="deleteOverlay">
-                    <div class="confirmPopup">
-                        <div class="confirmWrapper">
-                            <div class="confirmHeader">
+                <div className="confirmOverlay" id="deleteOverlay">
+                    <div className="confirmPopup">
+                        <div className="confirmWrapper">
+                            <div className="confirmHeader">
                                 <h5>Confirm to delete?</h5>
                             </div>
-                            <div class="confirmBody">
-                                <div class="confirmButtons">
-                                    <button type="button" class="cancelButton" id="deleteCancelButton" onClick={handleCancelButton}>Cancel</button>
-                                    <input type="submit" class="confirmButton" value="Confirm" id="confirmButton" onClick={handleConfirmDelete}></input>
+                            <div className="confirmBody">
+                                <div className="confirmButtons">
+                                    <button type="button" className="cancelButton" id="deleteCancelButton" onClick={handleCancelButton}>Cancel</button>
+                                    <input type="submit" className="confirmButton" value="Confirm" id="confirmButton" onClick={handleConfirmDelete}></input>
                                 </div>
                             </div>
                         </div>
@@ -133,23 +140,23 @@ function Watchlist() {
                 </div>
             )}
             {showRenameOverlay && (
-                <div class="renameOverlay" id="renameOverlay">
-                    <div class="renamePopup">
-                        <div class="renameHeader">
+                <div className="renameOverlay" id="renameOverlay">
+                    <div className="renamePopup">
+                        <div className="renameHeader">
                             <h5>Rename watchlist</h5>
-                            <button id="renameCloseButton" onClick={handleCancelButton}><i class="bi bi-x-lg"></i></button>
+                            <button id="renameCloseButton" onClick={handleCancelButton}><i className="bi bi-x-lg"></i></button>
                         </div>
-                        <div class="renameBody">
+                        <div className="renameBody">
                             <form id="renameForm">
-                                <div class="renameWrapper">
-                                    <div class="renamePrompt">
+                                <div className="renameWrapper">
+                                    <div className="renamePrompt">
                                         <h6>Enter the new screen name:</h6>
-                                        <input type="text" autocomplete="off" id="renameInput" name="collection_name" value={renameInput} onChange={(e) => setRenameInput(e.target.value)} required></input>
+                                        <input type="text" autoComplete="off" id="renameInput" name="collection_name" value={renameInput} onChange={(e) => setRenameInput(e.target.value)} required></input>
                                         <h6 id="renameMsg"><span id="saveIcon"></span>&nbsp;<span id="saveAlert"></span></h6>
                                     </div>
-                                    <div class="renameButtons">
-                                        <button type="button" class="cancelButton" id="cancelButton" onClick={handleCancelButton}>Cancel</button>
-                                        <input type="submit" class="confirmButton" value="Save" id="saveButton2" onClick={handleRename}></input>
+                                    <div className="renameButtons">
+                                        <button type="button" className="cancelButton" id="cancelButton" onClick={handleCancelButton}>Cancel</button>
+                                        <input type="submit" className="confirmButton" value="Save" id="saveButton2" onClick={handleRename}></input>
                                     </div>
                                 </div>
                             </form>
@@ -158,10 +165,10 @@ function Watchlist() {
                 </div>
             )}
             <div id="watchlistWrapper">
-                <div class="utility" id="watchlistUtility">
+                <div className="utility" id="watchlistUtility">
                     <h3 id="watchlistName">My watchlist</h3>
                 </div>
-                <div class="tableview" id="wlTableView">
+                <div className="tableview" id="wlTableView">
                     <table id="wltable">
                         <thead id="wlhead">
                             <tr>
@@ -180,7 +187,7 @@ function Watchlist() {
                                     <td>{watchlists.date}</td>
                                     <td>{watchlists.time}</td>
                                     <td id='dltCell'>
-                                        <button id='wthButton' value={watchlists.name}><i className='bi bi-eye'></i></button>
+                                        <button id='wthButton' onClick={() => handleView(watchlists._id)}><i className='bi bi-eye'></i></button>
                                         <button id='edtButton' onClick={() => handleEdit(watchlists.name)}><i className='bi bi-pencil-square'></i></button>
                                         <button id='dltButton' onClick={() => handleDelete(watchlists.name)}><i className='bi bi-trash3'></i></button>
                                     </td>

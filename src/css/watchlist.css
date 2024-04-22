@@ -13,7 +13,7 @@ body {
 .utility {
     display: flex;
     justify-content: space-between;
-    margin: 8px 0px 0px 0px;
+    margin: 0px;
     border-radius: 8px 8px 0px 0px;
     padding: 18px;
     padding-bottom: 10px;
@@ -24,11 +24,11 @@ body {
 }
 
 .tableview {
-    margin: 0px 8px 8px 0px;
+    margin: 0px 8px 0px 0px;
     padding: 8px;
     border-radius: 0px 0px 8px 8px;
     overflow-y: auto;
-    height: 74vh;
+    height: 75vh;
     border: 2px solid var(--border_gray);
     border-top: none;
     background-color: var(--card_black);

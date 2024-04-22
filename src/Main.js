@@ -4,6 +4,7 @@ import Home from './Home'; // Your home page component
 import Login from './Login';
 import Signup from './Signup';
 import Watchlist from './watchlist';
+import Screen from './Screen';
 
 function Main() {
  return (
@@ -14,6 +15,7 @@ function Main() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/watchlist" element={<Watchlist />} />
+        <Route path="/screen" element={<Screen />} />
       </Routes>
     </Router>
  );
