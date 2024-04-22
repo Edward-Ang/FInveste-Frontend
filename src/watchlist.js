@@ -114,8 +114,8 @@ function Watchlist() {
         }
     }
 
-    const handleView = async (watchlist) => {
-        navigate('/screen', { state: { watchlistId: watchlist } });
+    const handleView = async (wId, wName) => {
+        navigate('/screen', { state: { watchlistId: wId, watchlistName: wName } });
     };
 
     return (
@@ -187,7 +187,7 @@ function Watchlist() {
                                     <td>{watchlists.date}</td>
                                     <td>{watchlists.time}</td>
                                     <td id='dltCell'>
-                                        <button id='wthButton' onClick={() => handleView(watchlists._id)}><i className='bi bi-eye'></i></button>
+                                        <button id='wthButton' onClick={() => handleView(watchlists._id, watchlists.name)}><i className='bi bi-eye'></i></button>
                                         <button id='edtButton' onClick={() => handleEdit(watchlists.name)}><i className='bi bi-pencil-square'></i></button>
                                         <button id='dltButton' onClick={() => handleDelete(watchlists.name)}><i className='bi bi-trash3'></i></button>
                                     </td>

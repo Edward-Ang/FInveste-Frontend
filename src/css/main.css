@@ -219,6 +219,7 @@ table {
 #screenTableView,
 #screenUtility {
     margin: 0px 10px 0px 10px;
+    width: 98.8%;
 }
 
 th {
