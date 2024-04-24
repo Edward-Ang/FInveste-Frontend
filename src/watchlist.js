@@ -168,7 +168,7 @@ function Watchlist() {
                 <div className="utility" id="watchlistUtility">
                     <h3 id="watchlistName">My watchlist</h3>
                 </div>
-                <div className="tableview" id="wlTableView">
+                <div className="tableview" id="wl">
                     <table id="wltable">
                         <thead id="wlhead">
                             <tr>

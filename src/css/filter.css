@@ -21,7 +21,7 @@
 }
 
 .filterHeader h4 {
-    letter-spacing: 1px;
+    letter-spacing: 0.5px;
 }
 
 .filterFooter {
@@ -63,50 +63,7 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
-}
-
-.rangeOdd,
-.rangeEven {
-    width: 30%;
-    height: 5px;
-    border: none !important;
-}
-
-.rangeOdd .noUi-connect {
-    background: var(--blue);
-}
-
-.rangeEven .noUi-connect {
-    background: var(--purple);
-}
-
-.rangeOdd .noUi-base,
-.rangeEven .noUi-base {
-    background: var(--border_gray);
-}
-
-.noUi-handle {
-    width: 15px !important;
-    height: 15px !important;
-    border-radius: 50%;
-    right: -7.5px !important;
-    /* Must be (width / 2) * -1 */
-    top: -5px !important;
-    border: none !important;
-    box-shadow: none !important;
-}
-
-.rangeOdd .noUi-handle {
-    background: var(--blue);
-}
-
-.rangeEven .noUi-handle {
-    background: var(--purple);
-}
-
-.noUi-handle:before,
-.noUi-handle:after {
-    display: none;
+    height: fit-content;
 }
 
 #filterTable {
@@ -117,9 +74,9 @@
     text-align: left;
     padding-left: 6%;
     font-weight: bolder;
-    letter-spacing: 1px;
     border-bottom: none;
     border-top: 2px solid var(--border_gray);
+    width: 30%;
 }
 
 .filterCol {
@@ -127,7 +84,7 @@
     border-left: none;
     border-right: none;
     border-bottom: none;
-    letter-spacing: 1px;
+    letter-spacing: 0.5px;
 }
 
 select {

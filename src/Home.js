@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Box from '@mui/material/Box';
+import Slider from '@mui/material/Slider';
 import axios from 'axios';
 import './css/home.css';
 import './css/main.css';
@@ -16,6 +18,16 @@ function Home() {
     const [triggerEffect, setTriggerEffect] = useState(false);
     const [searchInput, setSearchInput] = useState('');
     const [saveName, setSaveName] = useState('');
+    const [openValue, setOpenValue] = React.useState([0, 600]);
+    const [highValue, setHighValue] = React.useState([0, 600]);
+    const [lowValue, setLowValue] = React.useState([0, 600]);
+    const [closeValue, setCloseValue] = React.useState([0, 600]);
+    const [MAValue, setMAValue] = React.useState([0, 600]);
+    const [EMAValue, setEMAValue] = React.useState([0, 600]);
+    const [RSIValue, setRSIValue] = React.useState([0, 600]);
+    const [ratingValue, setRatingValue] = useState('All');
+    const defaultRange = [0, 600];
+
     const navigate = useNavigate();
 
     axios.defaults.withCredentials = true;
@@ -40,8 +52,21 @@ function Home() {
     }, [navigate, triggerEffect]);
 
     const filteredStocks = stocks.filter(stock =>
-        stock.Stock.toLowerCase().includes(searchInput.toLowerCase()) ||
-        stock.Name.toLowerCase().includes(searchInput.toLowerCase())
+        (stock.Stock.toLowerCase().includes(searchInput.toLowerCase()) ||
+            stock.Name.toLowerCase().includes(searchInput.toLowerCase())) &&
+        (stock.Open >= openValue[0] && stock.Open <= openValue[1]) &&
+        (stock.High >= highValue[0] && stock.High <= highValue[1]) &&
+        (stock.Low >= lowValue[0] && stock.Low <= lowValue[1]) &&
+        (stock.Close >= closeValue[0] && stock.Close <= closeValue[1]) &&
+        (stock.MA >= MAValue[0] && stock.MA <= MAValue[1]) &&
+        (stock.EMA >= EMAValue[0] && stock.EMA <= EMAValue[1]) &&
+        (stock.RSI >= RSIValue[0] && stock.RSI <= RSIValue[1]) &&
+        (ratingValue === 'All' || 
+        (ratingValue === 'Buy' && stock.Rating === 'Buy') ||
+        (ratingValue === 'Sell' && stock.Rating === 'Sell') ||
+        (ratingValue === 'Strong Buy' && stock.Rating === 'Strong Buy') ||
+        (ratingValue === 'Strong Sell' && stock.Rating === 'Strong Sell') ||
+        (ratingValue === 'Neutral' && stock.Rating === 'Neutral'))
     );
 
     const filteredStocksBook = stocks.filter(stock => stock.Book === 1);
@@ -99,19 +124,62 @@ function Home() {
     }
 
     const handleBookmark = async (stock) => {
-        try{
+        try {
             const response = await axios.post('http://localhost:5000/api/toggleBookmark', {
                 stock,
             });
-            
-            if(response.data.message === 'Toggle success'){
+
+            if (response.data.message === 'Toggle success') {
                 setTriggerEffect(true);
-            }else{
+            } else {
                 console.log('toggle failed');
             }
-        }catch(error){
+        } catch (error) {
             console.log('Error toggle: ', error);
         }
+    }
+
+    const handleOpenChange = (event, newValue) => {
+        setOpenValue(newValue);
+    };
+
+    const handleHighChange = (event, newValue) => {
+        setHighValue(newValue);
+    };
+
+    const handleLowChange = (event, newValue) => {
+        setLowValue(newValue);
+    };
+
+    const handleCloseChange = (event, newValue) => {
+        setCloseValue(newValue);
+    };
+
+    const handleMAChange = (event, newValue) => {
+        setMAValue(newValue);
+    };
+
+    const handleEMAChange = (event, newValue) => {
+        setEMAValue(newValue);
+    };
+
+    const handleRSIChange = (event, newValue) => {
+        setRSIValue(newValue);
+    };
+
+    const handleRatingChange = (event) => {
+        setRatingValue(event.target.value);
+    }
+
+    const handleReset = () => {
+        setOpenValue(defaultRange);
+        setHighValue(defaultRange);
+        setLowValue(defaultRange);
+        setCloseValue(defaultRange);
+        setMAValue(defaultRange);
+        setEMAValue(defaultRange);
+        setRSIValue(defaultRange);
+        setRatingValue('All');
     }
 
     return (
@@ -156,7 +224,7 @@ function Home() {
                         </div>
                         <div className="filterBody">
                             <div className="resetDiv">
-                                <button id="clearButton">
+                                <button id="clearButton" onClick={handleReset}>
                                     Reset all&nbsp;<i className="fa-solid fa-arrow-rotate-right"></i>
                                 </button>
                             </div>
@@ -165,9 +233,18 @@ function Home() {
                                     <td className="criteriaCol">Open</td>
                                     <td className="filterCol">
                                         <div className="sliderContainer">
-                                            <div><span id="kt_slider_basic_min_open"></span></div>
-                                            <div className="rangeOdd" id="kt_slider_basic_open"></div>
-                                            <div><span id="kt_slider_basic_max_open"></span></div>
+                                            <span className='filterValSpan'>{openValue[0]}</span>
+                                            <Box sx={{ width: 200 }}>
+                                                <Slider
+                                                    getAriaLabel={() => 'Open range'}
+                                                    value={openValue}
+                                                    onChange={handleOpenChange}
+                                                    valueLabelDisplay="auto"
+                                                    min={0}
+                                                    max={600}
+                                                />
+                                            </Box>
+                                            <span className='filterValSpan'>{openValue[1]}</span>
                                         </div>
                                     </td>
                                 </tr>
@@ -175,9 +252,19 @@ function Home() {
                                     <td className="criteriaCol">High</td>
                                     <td className="filterCol">
                                         <div className="sliderContainer">
-                                            <div><span id="kt_slider_basic_min_high"></span></div>
-                                            <div className="rangeEven" id="kt_slider_basic_high"></div>
-                                            <div><span id="kt_slider_basic_max_high"></span></div>
+                                            <span className='filterValSpan'>{highValue[0]}</span>
+                                            <Box sx={{ width: 200 }}>
+                                                <Slider
+                                                    getAriaLabel={() => 'High range'}
+                                                    value={highValue}
+                                                    onChange={handleHighChange}
+                                                    valueLabelDisplay="auto"
+                                                    min={0}
+                                                    max={600}
+                                                    color='secondary'
+                                                />
+                                            </Box>
+                                            <span className='filterValSpan'>{highValue[1]}</span>
                                         </div>
                                     </td>
                                 </tr>
@@ -185,9 +272,18 @@ function Home() {
                                     <td className="criteriaCol">Low</td>
                                     <td className="filterCol">
                                         <div className="sliderContainer">
-                                            <div><span id="kt_slider_basic_min_low"></span></div>
-                                            <div className="rangeOdd" id="kt_slider_basic_low"></div>
-                                            <div><span id="kt_slider_basic_max_low"></span></div>
+                                            <span className='filterValSpan'>{lowValue[0]}</span>
+                                            <Box sx={{ width: 200 }}>
+                                                <Slider
+                                                    getAriaLabel={() => 'Low range'}
+                                                    value={lowValue}
+                                                    onChange={handleLowChange}
+                                                    valueLabelDisplay="auto"
+                                                    min={0}
+                                                    max={600}
+                                                />
+                                            </Box>
+                                            <span className='filterValSpan'>{lowValue[1]}</span>
                                         </div>
                                     </td>
                                 </tr>
@@ -195,9 +291,19 @@ function Home() {
                                     <td className="criteriaCol">Close</td>
                                     <td className="filterCol">
                                         <div className="sliderContainer">
-                                            <div><span id="kt_slider_basic_min_close"></span></div>
-                                            <div className="rangeEven" id="kt_slider_basic_close"></div>
-                                            <div><span id="kt_slider_basic_max_close"></span></div>
+                                            <span className='filterValSpan'>{closeValue[0]}</span>
+                                            <Box sx={{ width: 200 }}>
+                                                <Slider
+                                                    getAriaLabel={() => 'Close range'}
+                                                    value={closeValue}
+                                                    onChange={handleCloseChange}
+                                                    valueLabelDisplay="auto"
+                                                    min={0}
+                                                    max={600}
+                                                    color='secondary'
+                                                />
+                                            </Box>
+                                            <span className='filterValSpan'>{closeValue[1]}</span>
                                         </div>
                                     </td>
                                 </tr>
@@ -205,9 +311,18 @@ function Home() {
                                     <td className="criteriaCol">MA</td>
                                     <td className="filterCol">
                                         <div className="sliderContainer">
-                                            <div><span id="kt_slider_basic_min_MA"></span></div>
-                                            <div className="rangeOdd" id="kt_slider_basic_MA"></div>
-                                            <div><span id="kt_slider_basic_max_MA"></span></div>
+                                            <span className='filterValSpan'>{MAValue[0]}</span>
+                                            <Box sx={{ width: 200 }}>
+                                                <Slider
+                                                    getAriaLabel={() => 'MA range'}
+                                                    value={MAValue}
+                                                    onChange={handleMAChange}
+                                                    valueLabelDisplay="auto"
+                                                    min={0}
+                                                    max={600}
+                                                />
+                                            </Box>
+                                            <span className='filterValSpan'>{MAValue[1]}</span>
                                         </div>
                                     </td>
                                 </tr>
@@ -215,9 +330,19 @@ function Home() {
                                     <td className="criteriaCol">EMA</td>
                                     <td className="filterCol">
                                         <div className="sliderContainer">
-                                            <div><span id="kt_slider_basic_min_EMA"></span></div>
-                                            <div className="rangeEven" id="kt_slider_basic_EMA"></div>
-                                            <div><span id="kt_slider_basic_max_EMA"></span></div>
+                                            <span className='filterValSpan'>{EMAValue[0]}</span>
+                                            <Box sx={{ width: 200 }}>
+                                                <Slider
+                                                    getAriaLabel={() => 'EMA range'}
+                                                    value={EMAValue}
+                                                    onChange={handleEMAChange}
+                                                    valueLabelDisplay="auto"
+                                                    min={0}
+                                                    max={600}
+                                                    color='secondary'
+                                                />
+                                            </Box>
+                                            <span className='filterValSpan'>{EMAValue[1]}</span>
                                         </div>
                                     </td>
                                 </tr>
@@ -225,17 +350,26 @@ function Home() {
                                     <td className="criteriaCol">RSI</td>
                                     <td className="filterCol">
                                         <div className="sliderContainer">
-                                            <div><span id="kt_slider_basic_min_RSI"></span></div>
-                                            <div className="rangeOdd" id="kt_slider_basic_RSI"></div>
-                                            <div><span id="kt_slider_basic_max_RSI"></span></div>
+                                            <span className='filterValSpan'>{RSIValue[0]}</span>
+                                            <Box sx={{ width: 200 }}>
+                                                <Slider
+                                                    getAriaLabel={() => 'RSI range'}
+                                                    value={RSIValue}
+                                                    onChange={handleRSIChange}
+                                                    valueLabelDisplay="auto"
+                                                    min={0}
+                                                    max={600}
+                                                />
+                                            </Box>
+                                            <span className='filterValSpan'>{RSIValue[1]}</span>
                                         </div>
                                     </td>
                                 </tr>
                                 <tr className="filterRow">
                                     <td className="criteriaCol">Rating</td>
                                     <td className="filterCol">
-                                        <select name="ratings" id="ratingOpt">
-                                            <option value="All" selected>All</option>
+                                        <select name="ratings" id="ratingOpt" value={ratingValue} onChange={handleRatingChange}>
+                                            <option value="All">All</option>
                                             <option value="Strong Buy">Strong Buy</option>
                                             <option value="Buy">Buy</option>
                                             <option value="Neutral">Neutral</option>
@@ -332,7 +466,7 @@ function Home() {
                                             <span
                                                 className="favSpan"
                                                 data-value={stock.Stock}
-                                                onClick={() => {handleBookmark(stock.Stock)}}
+                                                onClick={() => { handleBookmark(stock.Stock) }}
                                             >
                                                 <i className={stock.Book === 0 ? "bi bi-bookmark" : "bi bi-bookmark-fill"} />
                                             </span>
