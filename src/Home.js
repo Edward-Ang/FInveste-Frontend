@@ -11,6 +11,7 @@ import './css/main.css';
 import './css/save.css';
 import './css/filter.css';
 import Header from './Header';
+import DownloadCSVButton from './Download';
 
 function Home() {
     const [stocks, setStocks] = useState([]);
@@ -274,155 +275,157 @@ function Home() {
                                 </button>
                             </div>
                             <table id="filterTable">
-                                <tr className="filterRow">
-                                    <td className="criteriaCol">Open</td>
-                                    <td className="filterCol">
-                                        <div className="sliderContainer">
-                                            <span className='filterValSpan'>{openValue[0]}</span>
-                                            <Box sx={{ width: 200 }}>
-                                                <Slider
-                                                    getAriaLabel={() => 'Open range'}
-                                                    value={openValue}
-                                                    onChange={handleOpenChange}
-                                                    valueLabelDisplay="auto"
-                                                    min={0}
-                                                    max={600}
-                                                />
-                                            </Box>
-                                            <span className='filterValSpan'>{openValue[1]}</span>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr className="filterRow">
-                                    <td className="criteriaCol">High</td>
-                                    <td className="filterCol">
-                                        <div className="sliderContainer">
-                                            <span className='filterValSpan'>{highValue[0]}</span>
-                                            <Box sx={{ width: 200 }}>
-                                                <Slider
-                                                    getAriaLabel={() => 'High range'}
-                                                    value={highValue}
-                                                    onChange={handleHighChange}
-                                                    valueLabelDisplay="auto"
-                                                    min={0}
-                                                    max={600}
-                                                    color='secondary'
-                                                />
-                                            </Box>
-                                            <span className='filterValSpan'>{highValue[1]}</span>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr className="filterRow">
-                                    <td className="criteriaCol">Low</td>
-                                    <td className="filterCol">
-                                        <div className="sliderContainer">
-                                            <span className='filterValSpan'>{lowValue[0]}</span>
-                                            <Box sx={{ width: 200 }}>
-                                                <Slider
-                                                    getAriaLabel={() => 'Low range'}
-                                                    value={lowValue}
-                                                    onChange={handleLowChange}
-                                                    valueLabelDisplay="auto"
-                                                    min={0}
-                                                    max={600}
-                                                />
-                                            </Box>
-                                            <span className='filterValSpan'>{lowValue[1]}</span>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr className="filterRow">
-                                    <td className="criteriaCol">Close</td>
-                                    <td className="filterCol">
-                                        <div className="sliderContainer">
-                                            <span className='filterValSpan'>{closeValue[0]}</span>
-                                            <Box sx={{ width: 200 }}>
-                                                <Slider
-                                                    getAriaLabel={() => 'Close range'}
-                                                    value={closeValue}
-                                                    onChange={handleCloseChange}
-                                                    valueLabelDisplay="auto"
-                                                    min={0}
-                                                    max={600}
-                                                    color='secondary'
-                                                />
-                                            </Box>
-                                            <span className='filterValSpan'>{closeValue[1]}</span>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr className="filterRow">
-                                    <td className="criteriaCol">MA</td>
-                                    <td className="filterCol">
-                                        <div className="sliderContainer">
-                                            <span className='filterValSpan'>{MAValue[0]}</span>
-                                            <Box sx={{ width: 200 }}>
-                                                <Slider
-                                                    getAriaLabel={() => 'MA range'}
-                                                    value={MAValue}
-                                                    onChange={handleMAChange}
-                                                    valueLabelDisplay="auto"
-                                                    min={0}
-                                                    max={600}
-                                                />
-                                            </Box>
-                                            <span className='filterValSpan'>{MAValue[1]}</span>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr className="filterRow">
-                                    <td className="criteriaCol">EMA</td>
-                                    <td className="filterCol">
-                                        <div className="sliderContainer">
-                                            <span className='filterValSpan'>{EMAValue[0]}</span>
-                                            <Box sx={{ width: 200 }}>
-                                                <Slider
-                                                    getAriaLabel={() => 'EMA range'}
-                                                    value={EMAValue}
-                                                    onChange={handleEMAChange}
-                                                    valueLabelDisplay="auto"
-                                                    min={0}
-                                                    max={600}
-                                                    color='secondary'
-                                                />
-                                            </Box>
-                                            <span className='filterValSpan'>{EMAValue[1]}</span>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr className="filterRow">
-                                    <td className="criteriaCol">RSI</td>
-                                    <td className="filterCol">
-                                        <div className="sliderContainer">
-                                            <span className='filterValSpan'>{RSIValue[0]}</span>
-                                            <Box sx={{ width: 200 }}>
-                                                <Slider
-                                                    getAriaLabel={() => 'RSI range'}
-                                                    value={RSIValue}
-                                                    onChange={handleRSIChange}
-                                                    valueLabelDisplay="auto"
-                                                    min={0}
-                                                    max={600}
-                                                />
-                                            </Box>
-                                            <span className='filterValSpan'>{RSIValue[1]}</span>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr className="filterRow">
-                                    <td className="criteriaCol">Rating</td>
-                                    <td className="filterCol">
-                                        <select name="ratings" id="ratingOpt" value={ratingValue} onChange={handleRatingChange}>
-                                            <option value="All">All</option>
-                                            <option value="Strong Buy">Strong Buy</option>
-                                            <option value="Buy">Buy</option>
-                                            <option value="Neutral">Neutral</option>
-                                            <option value="Sell">Sell</option>
-                                            <option value="Strong Sell">Strong Sell</option>
-                                        </select>
-                                    </td>
-                                </tr>
+                                <tbody>
+                                    <tr className="filterRow">
+                                        <td className="criteriaCol">Open</td>
+                                        <td className="filterCol">
+                                            <div className="sliderContainer">
+                                                <span className='filterValSpan'>{openValue[0]}</span>
+                                                <Box sx={{ width: 200 }}>
+                                                    <Slider
+                                                        getAriaLabel={() => 'Open range'}
+                                                        value={openValue}
+                                                        onChange={handleOpenChange}
+                                                        valueLabelDisplay="auto"
+                                                        min={0}
+                                                        max={600}
+                                                    />
+                                                </Box>
+                                                <span className='filterValSpan'>{openValue[1]}</span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr className="filterRow">
+                                        <td className="criteriaCol">High</td>
+                                        <td className="filterCol">
+                                            <div className="sliderContainer">
+                                                <span className='filterValSpan'>{highValue[0]}</span>
+                                                <Box sx={{ width: 200 }}>
+                                                    <Slider
+                                                        getAriaLabel={() => 'High range'}
+                                                        value={highValue}
+                                                        onChange={handleHighChange}
+                                                        valueLabelDisplay="auto"
+                                                        min={0}
+                                                        max={600}
+                                                        color='secondary'
+                                                    />
+                                                </Box>
+                                                <span className='filterValSpan'>{highValue[1]}</span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr className="filterRow">
+                                        <td className="criteriaCol">Low</td>
+                                        <td className="filterCol">
+                                            <div className="sliderContainer">
+                                                <span className='filterValSpan'>{lowValue[0]}</span>
+                                                <Box sx={{ width: 200 }}>
+                                                    <Slider
+                                                        getAriaLabel={() => 'Low range'}
+                                                        value={lowValue}
+                                                        onChange={handleLowChange}
+                                                        valueLabelDisplay="auto"
+                                                        min={0}
+                                                        max={600}
+                                                    />
+                                                </Box>
+                                                <span className='filterValSpan'>{lowValue[1]}</span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr className="filterRow">
+                                        <td className="criteriaCol">Close</td>
+                                        <td className="filterCol">
+                                            <div className="sliderContainer">
+                                                <span className='filterValSpan'>{closeValue[0]}</span>
+                                                <Box sx={{ width: 200 }}>
+                                                    <Slider
+                                                        getAriaLabel={() => 'Close range'}
+                                                        value={closeValue}
+                                                        onChange={handleCloseChange}
+                                                        valueLabelDisplay="auto"
+                                                        min={0}
+                                                        max={600}
+                                                        color='secondary'
+                                                    />
+                                                </Box>
+                                                <span className='filterValSpan'>{closeValue[1]}</span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr className="filterRow">
+                                        <td className="criteriaCol">MA</td>
+                                        <td className="filterCol">
+                                            <div className="sliderContainer">
+                                                <span className='filterValSpan'>{MAValue[0]}</span>
+                                                <Box sx={{ width: 200 }}>
+                                                    <Slider
+                                                        getAriaLabel={() => 'MA range'}
+                                                        value={MAValue}
+                                                        onChange={handleMAChange}
+                                                        valueLabelDisplay="auto"
+                                                        min={0}
+                                                        max={600}
+                                                    />
+                                                </Box>
+                                                <span className='filterValSpan'>{MAValue[1]}</span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr className="filterRow">
+                                        <td className="criteriaCol">EMA</td>
+                                        <td className="filterCol">
+                                            <div className="sliderContainer">
+                                                <span className='filterValSpan'>{EMAValue[0]}</span>
+                                                <Box sx={{ width: 200 }}>
+                                                    <Slider
+                                                        getAriaLabel={() => 'EMA range'}
+                                                        value={EMAValue}
+                                                        onChange={handleEMAChange}
+                                                        valueLabelDisplay="auto"
+                                                        min={0}
+                                                        max={600}
+                                                        color='secondary'
+                                                    />
+                                                </Box>
+                                                <span className='filterValSpan'>{EMAValue[1]}</span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr className="filterRow">
+                                        <td className="criteriaCol">RSI</td>
+                                        <td className="filterCol">
+                                            <div className="sliderContainer">
+                                                <span className='filterValSpan'>{RSIValue[0]}</span>
+                                                <Box sx={{ width: 200 }}>
+                                                    <Slider
+                                                        getAriaLabel={() => 'RSI range'}
+                                                        value={RSIValue}
+                                                        onChange={handleRSIChange}
+                                                        valueLabelDisplay="auto"
+                                                        min={0}
+                                                        max={600}
+                                                    />
+                                                </Box>
+                                                <span className='filterValSpan'>{RSIValue[1]}</span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr className="filterRow">
+                                        <td className="criteriaCol">Rating</td>
+                                        <td className="filterCol">
+                                            <select name="ratings" id="ratingOpt" value={ratingValue} onChange={handleRatingChange}>
+                                                <option value="All">All</option>
+                                                <option value="Strong Buy">Strong Buy</option>
+                                                <option value="Buy">Buy</option>
+                                                <option value="Neutral">Neutral</option>
+                                                <option value="Sell">Sell</option>
+                                                <option value="Strong Sell">Strong Sell</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                </tbody>
                             </table>
                         </div>
                     </div>
@@ -453,11 +456,13 @@ function Home() {
                         </div>
                         <div className="favBody">
                             <table id="favTable">
-                                <tbody id="favBody">
+                                <thead>
                                     <tr>
                                         <th className="thFav">Stock</th>
                                         <th className="thFav">Rating</th>
                                     </tr>
+                                </thead>
+                                <tbody id="favBody">
                                     {filteredStocksBook.map((stock, index) => (
                                         <tr key={index}>
                                             <td className="favStock">{stock.Stock}</td>
@@ -478,9 +483,7 @@ function Home() {
                         <div className="utilityBtn">
                             <button className="Button" id="saveButton" onClick={handleSave}>Save</button>
                             <button className="Button" id="filterButton" onClick={handleFilter}>Filter</button>
-                            <button title="Download" onClick={() => { }} id="downloadButton">
-                                <i className="bi bi-download"></i>
-                            </button>
+                            <DownloadCSVButton data={sortedStocks} />
                         </div>
                     </div>
                     <div className="tableview">

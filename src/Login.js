@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import './css/Login.css'
 import './fonts/icomoon/style.css'
 
@@ -101,7 +101,7 @@ function Login() {
                                 <input type="checkbox" checked={checked} onChange={toggleChecked} name="remember_me" />
                                 <div className="control__indicator"></div>
                             </label>
-                            <span className="ml-auto"><a href="/reset" className="forgot-pass">Forgot Password</a></span>
+                            <span className="ml-auto"><Link to="/reset" className="forgot-pass">Forgot Password</Link></span>
                         </div>
 
                         {message && renderMessageDiv()}
@@ -110,7 +110,7 @@ function Login() {
 
                         <div className="d-flex align-items-center" id="switch">
                             <span className="caption">Don't have an account?</span>
-                            <span className="ml-auto"><a href='/signup' className="switch-pass">Sign up here</a></span>
+                            <span className="ml-auto"><Link to='/signup' className="switch-pass">Sign up here</Link></span>
                         </div>
                     </form>
                 </div>

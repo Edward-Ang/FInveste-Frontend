@@ -67,6 +67,10 @@
     border: none;
 }
 
+.confirmButton:hover{
+    background-color: var(--hover_blue);
+}
+
 #saveWatchlistInput{
     color: var(--white);
     background: transparent;

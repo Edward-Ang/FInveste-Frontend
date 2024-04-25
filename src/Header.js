@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import './css/header.css';
 
 const Header = ({ searchInput, setSearchInput }) => {
@@ -39,7 +39,7 @@ const Header = ({ searchInput, setSearchInput }) => {
             <div className="headerbar">
                 <div className="headerLogo">
                     <img src="/images/6888.KL.svg" alt="logo" />
-                    <a href="/home">FInvesté</a>
+                    <Link to="/home" className='link'>FInvesté</Link>
                 </div>
                 <div className="searchbar" onClick={(event) => event.stopPropagation()}>
                     <input type="text" autoComplete="off" id="filterInput" placeholder="Search" value={searchInput} onChange={(e) => setSearchInput(e.target.value)} />

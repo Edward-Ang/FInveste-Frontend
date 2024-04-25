@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import './css/Login.css'
 import './fonts/icomoon/style.css'
 
@@ -82,7 +82,7 @@ function Signup() {
 
                             <div className="d-flex align-items-center" id="switch">
                                 <span className="caption">Already have an account?</span>
-                                <span className="ml-auto"><a href='/login' className="switch-pass">Login here</a></span>
+                                <span className="ml-auto"><Link to='/login' className="switch-pass">Login here</Link></span>
                             </div>
                     </form>
                 </div>

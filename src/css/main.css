@@ -85,7 +85,7 @@ body {
 }
 
 #moreButton {
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.342);
     border-radius: 8px;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(5px);
@@ -97,7 +97,7 @@ body {
 }
 
 #moreButton:hover {
-    background: rgba(255, 255, 255, 0.384);
+    background: rgba(255, 255, 255, 0.2);
 }
 
 #moreLink {
@@ -203,6 +203,10 @@ table {
 
 #saveButton {
     margin-right: 19px;
+}
+
+#saveButton:hover, #filterButton:hover{
+    background-color: var(--hover_blue);
 }
 
 .tableview {

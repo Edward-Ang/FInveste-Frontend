@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 import Header from './Header';
+import DownloadCSVButton from './Download';
 
 function Screen() {
     const [searchInput, setSearchInput] = useState('');
@@ -72,6 +73,7 @@ function Screen() {
                 <div className="utilityHeading">
                     <h3 id="watchlistName">{watchlistName}</h3>
                 </div>
+                <DownloadCSVButton data={sortedStocks} />
             </div>
             <div className="body">
                 <div className="spinnerBg" id="spinnerBg">
@@ -82,7 +84,7 @@ function Screen() {
                     <table id="myTable">
                         <thead>
                             <tr className="theader">
-                                <th onclick="sortTable(0)">#</th>
+                                <th>#</th>
                                 <th className="Ticker" onClick={() => { handleSort('Name') }}>
                                     <div className="ndcol" >
                                         <div className="tickerword">
