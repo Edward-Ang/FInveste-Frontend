@@ -251,7 +251,7 @@ function Home() {
                                                     <Spinner animation="border" size="sm" className="custom-spinner" />
                                                 </span>
                                             )}
-                                            <input type="submit" value="Save" id='saveWatchlistInput'/>
+                                            <input type="submit" value="Save" id='saveWatchlistInput' />
                                         </button>
                                     </div>
                                 </div>

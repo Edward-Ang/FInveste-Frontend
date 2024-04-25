@@ -390,6 +390,7 @@ th:hover {
     padding-right: 0px;
     width: min-content;
     cursor: pointer;
+    z-index: 3;
 }
 
 .favSpan {
