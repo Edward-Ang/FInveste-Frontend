@@ -58,7 +58,7 @@ function Watchlist() {
                 });
             } else {
                 console.log('not deleted');
-                toast.error('Error delete watchlist', {
+                toast.error(response.data.error, {
                     position: 'bottom-left'
                 });
             }

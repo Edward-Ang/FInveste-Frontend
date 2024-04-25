@@ -4,6 +4,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
+import { Spinner } from 'react-bootstrap';
 import axios from 'axios';
 import './css/home.css';
 import './css/main.css';
@@ -29,7 +30,7 @@ function Home() {
     const [sortedColumn, setSortedColumn] = useState(null);
     const [sortOrder, setSortOrder] = useState(true);
     const defaultRange = [0, 600];
-
+    const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
 
     axios.defaults.withCredentials = true;
@@ -100,10 +101,10 @@ function Home() {
 
     const handleSaveWatchlist = async (event) => {
         event.preventDefault();
+        setIsLoading(true);
         try {
             const response = await axios.get('http://localhost:5000/api/getUserId');
             const userId = response.data.userId;
-            console.log(filteredStocks);
 
             if (userId) {
                 try {
@@ -134,6 +135,7 @@ function Home() {
         } catch (error) {
             console.log('Error get userId: ', error);
         }
+        setIsLoading(false);
     }
 
     const handleBookmark = async (stock) => {
@@ -243,7 +245,14 @@ function Home() {
                                         <button type="button" className="cancelButton" id="cancelButton" onClick={handleCancelOverlay}>
                                             Cancel
                                         </button>
-                                        <input type="submit" className="confirmButton" value="Save" id="saveButton2" onClick={handleSaveWatchlist} />
+                                        <button className="confirmButton" id="saveButton2" onClick={handleSaveWatchlist}>
+                                            {isLoading && (
+                                                <span className="spinner-container">
+                                                    <Spinner animation="border" size="sm" className="custom-spinner" />
+                                                </span>
+                                            )}
+                                            <input type="submit" value="Save" id='saveWatchlistInput'/>
+                                        </button>
                                     </div>
                                 </div>
                             </form>
@@ -480,19 +489,19 @@ function Home() {
                                 <tr className="theader">
                                     <th> </th>
                                     <th>#</th>
-                                    <th className="Ticker" onClick={() => {handleSort('Name')}}>
+                                    <th className="Ticker" onClick={() => { handleSort('Name') }}>
                                         <div className="ndcol">
                                             <div className="tickerword">Stock</div>
                                         </div>
                                     </th>
-                                    <th onClick={() => {handleSort('Open')}}>Open</th>
-                                    <th onClick={() => {handleSort('High')}}>High</th>
-                                    <th onClick={() => {handleSort('Low')}}>Low</th>
-                                    <th onClick={() => {handleSort('Close')}}>Close</th>
-                                    <th onClick={() => {handleSort('MA')}}>MA</th>
-                                    <th onClick={() => {handleSort('EMA')}}>EMA</th>
-                                    <th onClick={() => {handleSort('RSI')}}>RSI</th>
-                                    <th onClick={() => {handleSort('RatingNo')}}>Rating</th>
+                                    <th onClick={() => { handleSort('Open') }}>Open</th>
+                                    <th onClick={() => { handleSort('High') }}>High</th>
+                                    <th onClick={() => { handleSort('Low') }}>Low</th>
+                                    <th onClick={() => { handleSort('Close') }}>Close</th>
+                                    <th onClick={() => { handleSort('MA') }}>MA</th>
+                                    <th onClick={() => { handleSort('EMA') }}>EMA</th>
+                                    <th onClick={() => { handleSort('RSI') }}>RSI</th>
+                                    <th onClick={() => { handleSort('RatingNo') }}>Rating</th>
                                 </tr>
                             </thead>
                             <tbody id="tableBody">
