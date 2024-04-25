@@ -1,6 +1,7 @@
 :root {
     --arrow-icon: url(https://upload.wikimedia.org/wikipedia/commons/9/9d/Caret_down_font_awesome_whitevariation.svg);
     --red: rgb(255, 37, 74);
+    --hover_red: rgb(220, 0, 40);
     --blue: #3c7efc;
     --hover_blue: #2c6bbd;
     --purple: #864af9;

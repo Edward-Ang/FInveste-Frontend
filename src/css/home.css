@@ -52,6 +52,10 @@
     height: 32px;
 }
 
+.cancelButton:hover{
+    background-color: var(--hover_red);
+}
+
 .confirmButton {
     display: flex;
     justify-content: center;

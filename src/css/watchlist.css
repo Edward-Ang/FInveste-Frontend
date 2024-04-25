@@ -134,6 +134,10 @@ Button {
     border: none;
 }
 
+.confirmButton:hover {
+    background-color: var(--hover_blue);
+}
+
 .confirmButtons {
     display: flex;
     justify-content: space-between;
@@ -152,6 +156,10 @@ Button {
     height: 32px;
 }
 
+.cancelButton:hover {
+    background-color: var(--hover_red);
+}
+
 #confirmButton {
     color: var(--white);
     padding-left: 12px;
@@ -164,16 +172,32 @@ Button {
     border: none;
 }
 
+#confirmButton:hover{
+    background-color: var(--hover_blue);
+}
+
 #wthButton {
     background-color: rgb(0, 169, 127);
 }
 
+#wthButton:hover {
+    background-color: rgb(0, 128, 96);
+}
+
 #edtButton {
-    background-color: rgb(72, 121, 255);
+    background-color: var(--blue);
+}
+
+#edtButton:hover {
+    background-color: var(--hover_blue);
 }
 
 #dltButton {
     background-color: rgb(255, 23, 62);
+}
+
+#dltButton:hover {
+    background-color: var(--hover_red);
 }
 
 #dltCell {
@@ -183,7 +207,7 @@ Button {
     height: 53px;
 }
 
-#dltCell Button{
+#dltCell Button {
     width: 33px;
     height: 33px;
 }

@@ -101,6 +101,10 @@
     background-color: rgb(227, 51, 51);
 }
 
+#cancelButton:hover{
+    background-color: var(--hover_red);
+}
+
 #saveButton2 {
     color: var(--white);
     padding-left: 12px;
