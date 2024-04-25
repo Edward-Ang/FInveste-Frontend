@@ -26,6 +26,8 @@ function Home() {
     const [EMAValue, setEMAValue] = React.useState([0, 600]);
     const [RSIValue, setRSIValue] = React.useState([0, 600]);
     const [ratingValue, setRatingValue] = useState('All');
+    const [sortedColumn, setSortedColumn] = useState(null);
+    const [sortOrder, setSortOrder] = useState(true);
     const defaultRange = [0, 600];
 
     const navigate = useNavigate();
@@ -51,22 +53,33 @@ function Home() {
         }
     }, [navigate, triggerEffect]);
 
+    const filterRating = (stock) => {
+        return (
+            ratingValue === 'All' ||
+            (ratingValue === 'Buy' && stock.Rating === 'Buy') ||
+            (ratingValue === 'Sell' && stock.Rating === 'Sell') ||
+            (ratingValue === 'Strong Buy' && stock.Rating === 'Strong Buy') ||
+            (ratingValue === 'Strong Sell' && stock.Rating === 'Strong Sell') ||
+            (ratingValue === 'Neutral' && stock.Rating === 'Neutral')
+        );
+    };
+
+    const filterIndicators = (stock) => {
+        return (
+            (stock.Open >= openValue[0] && stock.Open <= openValue[1]) &&
+            (stock.High >= highValue[0] && stock.High <= highValue[1]) &&
+            (stock.Low >= lowValue[0] && stock.Low <= lowValue[1]) &&
+            (stock.Close >= closeValue[0] && stock.Close <= closeValue[1]) &&
+            (stock.MA >= MAValue[0] && stock.MA <= MAValue[1]) &&
+            (stock.EMA >= EMAValue[0] && stock.EMA <= EMAValue[1]) &&
+            (stock.RSI >= RSIValue[0] && stock.RSI <= RSIValue[1])
+        )
+    }
+
     const filteredStocks = stocks.filter(stock =>
         (stock.Stock.toLowerCase().includes(searchInput.toLowerCase()) ||
             stock.Name.toLowerCase().includes(searchInput.toLowerCase())) &&
-        (stock.Open >= openValue[0] && stock.Open <= openValue[1]) &&
-        (stock.High >= highValue[0] && stock.High <= highValue[1]) &&
-        (stock.Low >= lowValue[0] && stock.Low <= lowValue[1]) &&
-        (stock.Close >= closeValue[0] && stock.Close <= closeValue[1]) &&
-        (stock.MA >= MAValue[0] && stock.MA <= MAValue[1]) &&
-        (stock.EMA >= EMAValue[0] && stock.EMA <= EMAValue[1]) &&
-        (stock.RSI >= RSIValue[0] && stock.RSI <= RSIValue[1]) &&
-        (ratingValue === 'All' || 
-        (ratingValue === 'Buy' && stock.Rating === 'Buy') ||
-        (ratingValue === 'Sell' && stock.Rating === 'Sell') ||
-        (ratingValue === 'Strong Buy' && stock.Rating === 'Strong Buy') ||
-        (ratingValue === 'Strong Sell' && stock.Rating === 'Strong Sell') ||
-        (ratingValue === 'Neutral' && stock.Rating === 'Neutral'))
+        filterIndicators(stock) && filterRating(stock)
     );
 
     const filteredStocksBook = stocks.filter(stock => stock.Book === 1);
@@ -180,7 +193,30 @@ function Home() {
         setEMAValue(defaultRange);
         setRSIValue(defaultRange);
         setRatingValue('All');
+        setSortedColumn(null);
     }
+
+    const handleSort = (column) => {
+        setSortedColumn(column);
+        if (sortedColumn === column) {
+            // If the same column is clicked, toggle the sort order
+            setSortOrder(!sortOrder);
+        } else {
+            // If a different column is clicked, sort by that column in ascending order
+            setSortedColumn(column);
+            setSortOrder(true);
+        }
+    }
+
+    const sortedStocks = sortedColumn
+        ? [...filteredStocks].sort((a, b) => {
+            const aValue = a[sortedColumn];
+            const bValue = b[sortedColumn];
+            if (aValue < bValue) return sortOrder ? -1 : 1;
+            if (aValue > bValue) return sortOrder ? 1 : -1;
+            return 0;
+        })
+        : filteredStocks;
 
     return (
         <>
@@ -442,25 +478,25 @@ function Home() {
                         <table id="myTable">
                             <thead>
                                 <tr className="theader">
-                                    <th onClick={() => { }}> </th>
-                                    <th onClick={() => { }}>#</th>
-                                    <th className="Ticker" onClick={() => { }}>
+                                    <th> </th>
+                                    <th>#</th>
+                                    <th className="Ticker" onClick={() => {handleSort('Name')}}>
                                         <div className="ndcol">
                                             <div className="tickerword">Stock</div>
                                         </div>
                                     </th>
-                                    <th onClick={() => { }}>Open</th>
-                                    <th onClick={() => { }}>High</th>
-                                    <th onClick={() => { }}>Low</th>
-                                    <th onClick={() => { }}>Close</th>
-                                    <th onClick={() => { }}>MA</th>
-                                    <th onClick={() => { }}>EMA</th>
-                                    <th onClick={() => { }}>RSI</th>
-                                    <th onClick={() => { }}>Rating</th>
+                                    <th onClick={() => {handleSort('Open')}}>Open</th>
+                                    <th onClick={() => {handleSort('High')}}>High</th>
+                                    <th onClick={() => {handleSort('Low')}}>Low</th>
+                                    <th onClick={() => {handleSort('Close')}}>Close</th>
+                                    <th onClick={() => {handleSort('MA')}}>MA</th>
+                                    <th onClick={() => {handleSort('EMA')}}>EMA</th>
+                                    <th onClick={() => {handleSort('RSI')}}>RSI</th>
+                                    <th onClick={() => {handleSort('RatingNo')}}>Rating</th>
                                 </tr>
                             </thead>
                             <tbody id="tableBody">
-                                {filteredStocks.map((stock, index) => (
+                                {sortedStocks.map((stock, index) => (
                                     <tr key={index}>
                                         <td className="saveFav">
                                             <span
