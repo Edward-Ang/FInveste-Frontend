@@ -103,9 +103,9 @@ function Home() {
         try {
             const response = await axios.get('http://localhost:5000/api/getUserId');
             const userId = response.data.userId;
+            console.log(filteredStocks);
 
             if (userId) {
-                console.log(response.data.userId);
                 try {
                     const response = await axios.post('http://localhost:5000/api/save_watchlist', {
                         saveName,

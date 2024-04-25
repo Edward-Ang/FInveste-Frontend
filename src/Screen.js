@@ -7,6 +7,8 @@ function Screen() {
     const [searchInput, setSearchInput] = useState('');
     const [stocks, setStocks] = useState([]);
     const [watchlistName, setWatchlistName] = useState('');
+    const [sortedColumn, setSortedColumn] = useState(null);
+    const [sortOrder, setSortOrder] = useState(true);
     const location = useLocation();
 
     useEffect(() => {
@@ -41,6 +43,28 @@ function Screen() {
         stock.Name.toLowerCase().includes(searchInput.toLowerCase())
     );
 
+    const handleSort = (column) => {
+        setSortedColumn(column);
+        if (sortedColumn === column) {
+            // If the same column is clicked, toggle the sort order
+            setSortOrder(!sortOrder);
+        } else {
+            // If a different column is clicked, sort by that column in ascending order
+            setSortedColumn(column);
+            setSortOrder(true);
+        }
+    }
+
+    const sortedStocks = sortedColumn
+        ? [...filteredStocks].sort((a, b) => {
+            const aValue = a[sortedColumn];
+            const bValue = b[sortedColumn];
+            if (aValue < bValue) return sortOrder ? -1 : 1;
+            if (aValue > bValue) return sortOrder ? 1 : -1;
+            return 0;
+        })
+        : filteredStocks;
+
     return (
         <>
             <Header searchInput={searchInput} setSearchInput={setSearchInput} />
@@ -59,25 +83,25 @@ function Screen() {
                         <thead>
                             <tr className="theader">
                                 <th onclick="sortTable(0)">#</th>
-                                <th className="Ticker" onclick="sortTable(1)">
+                                <th className="Ticker" onClick={() => { handleSort('Name') }}>
                                     <div className="ndcol" >
                                         <div className="tickerword">
                                             Stock
                                         </div>
                                     </div>
                                 </th>
-                                <th onclick="sortTable(2)">Open</th>
-                                <th onclick="sortTable(3)">High</th>
-                                <th onclick="sortTable(4)">Low</th>
-                                <th onclick="sortTable(5)">Close</th>
-                                <th onclick="sortTable(6)">MA</th>
-                                <th onclick="sortTable(7)">EMA</th>
-                                <th onclick="sortTable(8)">RSI</th>
-                                <th onclick="sortTable(9)">Rating</th>
+                                <th onClick={() => { handleSort('Open') }}>Open</th>
+                                <th onClick={() => { handleSort('High') }}>High</th>
+                                <th onClick={() => { handleSort('Low') }}>Low</th>
+                                <th onClick={() => { handleSort('Close') }}>Close</th>
+                                <th onClick={() => { handleSort('MA') }}>MA</th>
+                                <th onClick={() => { handleSort('EMA') }}>EMA</th>
+                                <th onClick={() => { handleSort('RSI') }}>RSI</th>
+                                <th onClick={() => { handleSort('RatingNo') }}>Rating</th>
                             </tr>
                         </thead>
                         <tbody id="tableBody">
-                            {filteredStocks.map((stock, index) => (
+                            {sortedStocks.map((stock, index) => (
                                 <tr key={index}>
                                     <td>{index + 1}</td>
                                     <td key={index} className='stockCol'>
