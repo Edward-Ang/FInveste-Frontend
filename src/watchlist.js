@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import './css/header.css';
 import './css/watchlist.css';
 import './css/rename.css';
 import Header from './Header';

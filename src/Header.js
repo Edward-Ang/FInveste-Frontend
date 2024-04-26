@@ -30,7 +30,7 @@ const Header = ({ searchInput, setSearchInput }) => {
         }
     };
 
-    const handleNavigate = () =>{
+    const handleNavigate = () => {
         navigate('/watchlist');
     };
 
@@ -50,7 +50,7 @@ const Header = ({ searchInput, setSearchInput }) => {
                         <li id="watchlistButtonLi">
                             <a id="watchlistButton" onClick={handleNavigate}>Watchlist</a>
                         </li>
-                        <li>
+                        <li id='logoutButtonLi'>
                             <button id="accountButton" onClick={handleLogout}>Logout</button>
                         </li>
                     </ul>
