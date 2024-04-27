@@ -18,7 +18,7 @@ function Screen() {
                 if (location.state && location.state.watchlistId) {
                     setWatchlistName(location.state.watchlistName);
                     const watchlistID = location.state.watchlistId;
-                    const response = await axios.post('http://localhost:5000/api/get_screen', {
+                    const response = await axios.post('http://54.179.119.22:5000/api/get_screen', {
                         watchlistID
                     });
                     if (response.data) {

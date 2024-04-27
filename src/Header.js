@@ -17,7 +17,7 @@ const Header = ({ searchInput, setSearchInput }) => {
 
     const handleConfirmLogout = async () => {
         try {
-            const response = await axios.get('http://localhost:5000/api/logout');
+            const response = await axios.get('http://54.179.119.22:5000/api/logout');
 
             if (response.data.message === 'Logged out') {
                 // Redirect response from the server
