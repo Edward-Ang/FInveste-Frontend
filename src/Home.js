@@ -10,6 +10,7 @@ import './css/home.css';
 import './css/main.css';
 import './css/save.css';
 import './css/filter.css';
+import './css/media.css';
 import Header from './Header';
 import DownloadCSVButton from './Download';
 
