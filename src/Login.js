@@ -30,6 +30,8 @@ function Login() {
         checkRememberMeCookie();
     }, []);
 
+    axios.defaults.withCredentials = true;
+
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
@@ -101,7 +103,6 @@ function Login() {
                                 <input type="checkbox" checked={checked} onChange={toggleChecked} name="remember_me" />
                                 <div className="control__indicator"></div>
                             </label>
-                            <span className="ml-auto"><Link to="/reset" className="forgot-pass">Forgot Password</Link></span>
                         </div>
 
                         {message && renderMessageDiv()}

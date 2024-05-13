@@ -5,7 +5,6 @@ import Login from './Login';
 import Signup from './Signup';
 import Watchlist from './watchlist';
 import Screen from './Screen';
-import Reset from './Reset';
 
 function Main() {
  return (
@@ -17,7 +16,6 @@ function Main() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/watchlist" element={<Watchlist />} />
         <Route path="/screen" element={<Screen />} />
-        <Route path="/reset" element={<Reset />} />
       </Routes>
     </Router>
  );

@@ -4,6 +4,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
+import Skeleton from '@mui/material/Skeleton';
 import { Spinner } from 'react-bootstrap';
 import axios from 'axios';
 import './css/home.css';
@@ -34,27 +35,41 @@ function Home() {
     const defaultRange = [0, 600];
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
+    const [canFetchData, setCanFetchData] = useState(false);
 
     axios.defaults.withCredentials = true;
 
     useEffect(() => {
-        const getTable = async () => {
-            try {
-                const response = await axios.get('http://54.179.119.22:5000/api/get_main', { withCredentials: true });
-                const fetchedStocks = response.data;
-                setStocks(fetchedStocks);
-            } catch (error) {
-                console.error('Error fetching stocks:', error);
-            }
-        };
+        setIsLoading(true);
+        const timeoutId = setTimeout(() => {
+            setCanFetchData(true);
+        }, 2000);
 
-        getTable();
+        return () => clearTimeout(timeoutId);
+    }, []);
+
+    const getTable = async () => {
+        try {
+            const response = await axios.get('http://54.179.119.22:5000/api/get_main', { withCredentials: true });
+            const fetchedStocks = response.data;
+            setStocks(fetchedStocks);
+        } catch (error) {
+            console.error('Error fetching stocks:', error);
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+    useEffect(() => {
+        if (canFetchData) {
+            getTable();
+        }
 
         if (triggerEffect) {
             getTable(); // Trigger the effect if triggerEffect is true
             setTriggerEffect(false); // Reset triggerEffect to false after triggering
         }
-    }, [navigate, triggerEffect]);
+    }, [navigate, triggerEffect, canFetchData]);
 
     const filterRating = (stock) => {
         return (
@@ -509,7 +524,7 @@ function Home() {
                                 </tr>
                             </thead>
                             <tbody id="tableBody">
-                                {sortedStocks.map((stock, index) => (
+                                {sortedStocks.length > 8 ? (sortedStocks.map((stock, index) => (
                                     <tr key={index}>
                                         <td className="saveFav">
                                             <span
@@ -524,7 +539,11 @@ function Home() {
                                         <td key={index} className='stockCol'>
                                             <div className="stockContainer">
                                                 <div className="stockLogo">
-                                                    <img src={`/images/${stock.Stock}.svg`} alt={stock.Stock} />
+                                                    {isLoading === true ? (
+                                                        <Skeleton variant="circular" sx={{ bgcolor: '#35363c' }} width={39} height={39} />
+                                                    ) : (
+                                                        <img src={`/images/${stock.Stock}.svg`} alt={stock.Stock} />
+                                                    )}
                                                 </div>
                                                 <div className="stockWrapper">
                                                     <span className="stockTicker">{stock.Stock}</span>
@@ -541,7 +560,40 @@ function Home() {
                                         <td>{stock.RSI}</td>
                                         <td className={getRatingClass(stock.Rating)}>{stock.Rating}</td>
                                     </tr>
-                                ))}
+                                ))) : (
+                                    <React.Fragment>
+                                        {/* Render skeleton rows when sortedStocks is empty */}
+                                        {Array.from({ length: 8 }, (_, i) => (
+                                            <tr key={i}>
+                                                <td className="saveFav">
+                                                    <span className="favSpan">
+                                                    </span>
+                                                </td>
+                                                <td>
+                                                </td>
+                                                <td className="stockCol">
+                                                    <div className="stockContainer">
+                                                        <div className="stockLogo">
+                                                            <Skeleton variant="circular" width={39} height={39} sx={{ bgcolor: '#35363c' }} />
+                                                        </div>
+                                                        <div className="stockWrapper">
+                                                            <Skeleton variant="text" width={80} sx={{ bgcolor: '#35363c' }} />
+                                                            <Skeleton variant="text" width={380} sx={{ bgcolor: '#35363c' }} />
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td><Skeleton variant="text" width={40} sx={{ bgcolor: '#35363c' }} /></td>
+                                                <td><Skeleton variant="text" width={40} sx={{ bgcolor: '#35363c' }} /></td>
+                                                <td><Skeleton variant="text" width={40} sx={{ bgcolor: '#35363c' }} /></td>
+                                                <td><Skeleton variant="text" width={40} sx={{ bgcolor: '#35363c' }} /></td>
+                                                <td><Skeleton variant="text" width={40} sx={{ bgcolor: '#35363c' }} /></td>
+                                                <td><Skeleton variant="text" width={40} sx={{ bgcolor: '#35363c' }} /></td>
+                                                <td><Skeleton variant="text" width={40} sx={{ bgcolor: '#35363c' }} /></td>
+                                                <td><Skeleton variant="text" width={50} sx={{ bgcolor: '#35363c' }} /></td>
+                                            </tr>
+                                        ))}
+                                    </React.Fragment>
+                                )}
                             </tbody>
                         </table>
                     </div>
