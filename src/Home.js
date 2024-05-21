@@ -6,6 +6,8 @@ import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
 import Skeleton from '@mui/material/Skeleton';
 import { Spinner } from 'react-bootstrap';
+import { HiOutlineAdjustmentsHorizontal } from "react-icons/hi2";
+import { IoCloudDownloadOutline } from "react-icons/io5";
 import axios from 'axios';
 import './css/home.css';
 import './css/main.css';
@@ -493,12 +495,18 @@ function Home() {
                 <div className="rightContainer">
                     <div className="utility">
                         <div className="utilityHeading">
-                            <span id="watchlistName">Stock screener</span>
+                            <span className='defaultScreenName' id="defaultScreenName">Stock screener</span>
                             <span className="badge text-bg-info" style={{ fontSize: 'small', margin: '3px 0px 0px 8px' }}>MY</span>
                         </div>
                         <div className="utilityBtn">
-                            <button className="Button" id="saveButton" onClick={handleSave}>Save</button>
-                            <button className="Button" id="filterButton" onClick={handleFilter}>Filter</button>
+                            <button className="Button" id="saveButton" onClick={handleSave}>
+                                <span>Save</span>
+                                <IoCloudDownloadOutline className='save-icon' />
+                            </button>
+                            <button className="Button" id="filterButton" onClick={handleFilter}>
+                                <span>Filter</span>
+                                <HiOutlineAdjustmentsHorizontal className='filter-icon' />
+                            </button>
                             <DownloadCSVButton data={sortedStocks} />
                         </div>
                     </div>

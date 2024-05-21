@@ -212,6 +212,10 @@ table {
     background-color: var(--hover_blue);
 }
 
+.filter-icon, .save-icon{
+    display: none;
+}
+
 .tableview {
     width: auto;
     padding: 8px 8px 8px 8px;
@@ -246,6 +250,7 @@ th {
 }
 
 .thFav {
+    width: 50%;
     top: 0px;
 }
 
@@ -449,4 +454,11 @@ th:hover {
     font-size: 14px;
     font-weight: 600;
     color: var(--font_white);
+}
+
+#favStockId{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
 }
