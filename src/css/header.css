@@ -15,11 +15,19 @@
 }
 
 header {
+    background-color: var(--outter_black);
+    padding: 8px 8px 0px 8px;
+    height: fit-content;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.header-wrapper{
     background-color: var(--card_black);
-    margin: 8px 8px 10px 8px;
     border-radius: 8px;
     height: 68px;
-    width: 98.85%;
+    width: 100%;
     padding-top: 14px;
     justify-content: center;
     border: 2px solid var(--border_gray);
@@ -47,17 +55,17 @@ header {
     height: 39px;
 }
 
-.link{
+.header-link{
     text-decoration: none;
     color: inherit;
 }
 
-.link:hover{
+.header-link:hover{
     text-decoration: none;
     color: var(--font_white);
 }
 
-.headerbar a {
+.header-link {
     font-size: 24px;
     text-decoration: none;
     color: var(--white);
@@ -69,12 +77,12 @@ header {
     justify-content: space-between;
 }
 
-#dropdownContent {
+.dropdownContent {
     display: flex;
     justify-content: space-between;
 }
 
-#dropdownButton {
+.dropdownButton {
     display: none;
     background-color: transparent;
     box-shadow: none;
@@ -85,7 +93,7 @@ header {
     color: var(--white);
 }
 
-#accountButton {
+.accountButton {
     height: 36px;
     padding: 2px 12px 3px 12px;
     border-radius: 10px;
@@ -98,7 +106,7 @@ header {
     display: inline-block;
 }
 
-#watchlistButton {
+.watchlistButton {
     height: auto;
     color: var(--white);
     font-size: 16px;
@@ -107,6 +115,7 @@ header {
     padding-left: 8px;
     padding-right: 8px;
     transition: all 85ms ease-out;
+    text-decoration: none;
 }
 
 #watchlistButtonLi {
@@ -124,7 +133,7 @@ li {
     align-items: center;
 }
 
-#watchlistButton:hover {
+.watchlistButton:hover {
     border-bottom: 3px solid var(--blue);
 }
 
@@ -174,7 +183,7 @@ li {
     align-items: center;
 }
 
-#filterInput,
+.filterInput,
 #filterScreenInput {
     padding: 12px 24px;
     width: 100%;
@@ -215,7 +224,7 @@ li {
     transform-style: preserve-3d;
 }
 
-#watchlistName {
+#watchlistName, .defaultScreenName {
     font-size: 24px;
     font-weight: 600;
     color: var(--white);

@@ -1,112 +1,97 @@
 @media screen and (min-width: 250px) and (max-width: 480px) {
-    html {
-        width: 96%;
-    }
 
+    html,
     body {
-        height: 100vh;
+        height: 100%;
         margin: 0;
-        width: 103.5%;
+        padding: 0;
+        width: 100%;
     }
 
-    header {
-        margin: 8px 10px 10px 10px;
-        height: 59px;
-        width: auto;
-        padding-top: 11px;
-    }
-
-    .headerbar {
+    #headerbar {
         height: 36px;
         display: flex;
         justify-content: space-between;
         width: 95.3%;
     }
 
-    .headerLogo {
+    #headerLogo {
         display: flex;
         margin: 0;
         padding: 0;
         width: fit-content;
     }
 
-    .headerLogo img {
+    #logo {
         margin-right: 3px;
-        width: 36px;
-        height: 36px;
+        width: 26px;
+        height: 26px;
     }
 
-    .headerbar a {
+    #header-link {
         font-size: 20px;
-        text-decoration: none;
-        color: var(--white);
     }
 
-    .searchbar {
-        margin: 0;
+    #searchbar {
+        margin-left: 3%;
+        width: 100px;
     }
 
     #filterInput,
     #filterScreenInput {
+        padding-left: 15%;
         font-size: 12px;
-
-        &::placeholder {
-            padding-left: 0px;
-        }
     }
 
-    .headerIcon {
+    #dropdownMenu {
         position: relative;
         display: inline-block;
         text-align: center;
         padding: 0;
+        width: fit-content;
         height: max-content;
         z-index: 1;
         height: auto;
     }
 
     #dropdownButton {
-        display: block;
+        display: inline-block;
         justify-content: center;
-        margin-top: 3px;
+        align-items: center;
+        margin-top: 1px;
+        height: fit-content;
+        background-color: transparent;
     }
 
-    #dropdownButton i {
-        display: inline-block;
-        vertical-align: middle;
+    #dropdownButton:hover{
+        background-color: transparent;
+    }
+
+    #dropdownButton::after {
+        display: none;
     }
 
     #dropdownContent {
         display: none;
-        position: fixed;
-        right: 0;
-        list-style-type: none;
-        padding: 0;
-        margin-top: 16px;
-        margin-right: 4%;
-        width: 92.6%;
-        background-color: var(--card_black);
-        border: 2px solid var(--border_gray);
-        border-radius: 0px 0px 8px 8px;
     }
 
-    #watchlistButton {
-        margin: 0;
+    #dropdownContentReact {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background-color: var(--card_black);
+        border: 2px solid var(--border_gray);
+    }
+
+    #watchlistButton, #accountButton {
+        color: var(--white);
         font-size: 16px;
         height: 36px;
     }
 
-    #watchlistButtonLi {
-        margin-right: 0;
-    }
-
-    li {
-        margin: 5px;
-    }
-
-    #accountButton {
-        border: none;
-        font-size: 16px;
+    #watchlistButton:hover, #accountButton:hover {
+        background-color: transparent;
     }
 
     .bodyWrapper {
@@ -132,6 +117,10 @@
         margin-right: 5%;
     }
 
+    .badge {
+        display: none;
+    }
+
     .Button {
         width: 76px;
         height: 35px;
@@ -144,18 +133,36 @@
 
     #saveButton {
         padding-left: 13%;
-        border-radius: 0px;
+        border-radius: 0px 8px 8px 0px;
         border-left: 2px solid var(--border_gray);
         box-shadow: none;
         margin-right: 4px;
+    }
+
+    #filterButton span,
+    #saveButton span {
+        display: none;
+    }
+
+    #saveButton:hover,
+    #filterButton:hover,
+    #downloadButton:hover {
+        background-color: transparent;
+    }
+
+    .filter-icon,
+    .save-icon {
+        font-size: 20px;
+        display: inline-block;
     }
 
     #downloadButton {
         margin-left: 0;
     }
 
-    #watchlistName {
-        font-size: 18px;
+    #defaultScreenName {
+        font-size: 16px;
+        font-weight: bold;
     }
 
     th,
@@ -246,7 +253,7 @@
 /* Brave & Chrome */
 @media screen and (min-width: 1422px) {
     .favBody {
-        height: 41.5vh;
+        height: 38.9vh;
     }
 
     .tableview {

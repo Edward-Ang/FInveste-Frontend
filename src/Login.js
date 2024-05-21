@@ -28,12 +28,12 @@ function Login() {
 
         // Call the function to check for the cookie
         checkRememberMeCookie();
-    }, []);
+    }, [navigate]);
 
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://54.179.119.22:5000/api/login', {
+            const response = await axios.post('http://localhost:5000/api/login', {
                 username,
                 password,
                 checked,
@@ -101,7 +101,6 @@ function Login() {
                                 <input type="checkbox" checked={checked} onChange={toggleChecked} name="remember_me" />
                                 <div className="control__indicator"></div>
                             </label>
-                            <span className="ml-auto"><Link to="/reset" className="forgot-pass">Forgot Password</Link></span>
                         </div>
 
                         {message && renderMessageDiv()}

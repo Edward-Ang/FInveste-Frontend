@@ -4,7 +4,10 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
+import Skeleton from '@mui/material/Skeleton';
 import { Spinner } from 'react-bootstrap';
+import { HiOutlineAdjustmentsHorizontal } from "react-icons/hi2";
+import { IoCloudDownloadOutline } from "react-icons/io5";
 import axios from 'axios';
 import './css/home.css';
 import './css/main.css';
@@ -34,27 +37,41 @@ function Home() {
     const defaultRange = [0, 600];
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
+    const [canFetchData, setCanFetchData] = useState(false);
 
     axios.defaults.withCredentials = true;
 
     useEffect(() => {
-        const getTable = async () => {
-            try {
-                const response = await axios.get('http://54.179.119.22:5000/api/get_main', { withCredentials: true });
-                const fetchedStocks = response.data;
-                setStocks(fetchedStocks);
-            } catch (error) {
-                console.error('Error fetching stocks:', error);
-            }
-        };
+        setIsLoading(true);
+        const timeoutId = setTimeout(() => {
+            setCanFetchData(true);
+        }, 2000);
 
-        getTable();
+        return () => clearTimeout(timeoutId);
+    }, []);
+
+    const getTable = async () => {
+        try {
+            const response = await axios.get('http://localhost:5000/api/get_main', { withCredentials: true });
+            const fetchedStocks = response.data;
+            setStocks(fetchedStocks);
+        } catch (error) {
+            console.error('Error fetching stocks:', error);
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+    useEffect(() => {
+        if (canFetchData) {
+            getTable();
+        }
 
         if (triggerEffect) {
             getTable(); // Trigger the effect if triggerEffect is true
             setTriggerEffect(false); // Reset triggerEffect to false after triggering
         }
-    }, [navigate, triggerEffect]);
+    }, [navigate, triggerEffect, canFetchData]);
 
     const filterRating = (stock) => {
         return (
@@ -105,12 +122,12 @@ function Home() {
         event.preventDefault();
         setIsLoading(true);
         try {
-            const response = await axios.get('http://54.179.119.22:5000/api/getUserId');
+            const response = await axios.get('http://localhost:5000/api/getUserId');
             const userId = response.data.userId;
 
             if (userId) {
                 try {
-                    const response = await axios.post('http://54.179.119.22:5000/api/save_watchlist', {
+                    const response = await axios.post('http://localhost:5000/api/save_watchlist', {
                         saveName,
                         userId,
                         filteredStocks,
@@ -142,7 +159,7 @@ function Home() {
 
     const handleBookmark = async (stock) => {
         try {
-            const response = await axios.post('http://54.179.119.22:5000/api/toggleBookmark', {
+            const response = await axios.post('http://localhost:5000/api/toggleBookmark', {
                 stock,
             });
 
@@ -478,12 +495,18 @@ function Home() {
                 <div className="rightContainer">
                     <div className="utility">
                         <div className="utilityHeading">
-                            <span id="watchlistName">Stock screener</span>
+                            <span className='defaultScreenName' id="defaultScreenName">Stock screener</span>
                             <span className="badge text-bg-info" style={{ fontSize: 'small', margin: '3px 0px 0px 8px' }}>MY</span>
                         </div>
                         <div className="utilityBtn">
-                            <button className="Button" id="saveButton" onClick={handleSave}>Save</button>
-                            <button className="Button" id="filterButton" onClick={handleFilter}>Filter</button>
+                            <button className="Button" id="saveButton" onClick={handleSave}>
+                                <span>Save</span>
+                                <IoCloudDownloadOutline className='save-icon' />
+                            </button>
+                            <button className="Button" id="filterButton" onClick={handleFilter}>
+                                <span>Filter</span>
+                                <HiOutlineAdjustmentsHorizontal className='filter-icon' />
+                            </button>
                             <DownloadCSVButton data={sortedStocks} />
                         </div>
                     </div>
@@ -509,7 +532,7 @@ function Home() {
                                 </tr>
                             </thead>
                             <tbody id="tableBody">
-                                {sortedStocks.map((stock, index) => (
+                                {sortedStocks.length > 8 ? (sortedStocks.map((stock, index) => (
                                     <tr key={index}>
                                         <td className="saveFav">
                                             <span
@@ -524,7 +547,11 @@ function Home() {
                                         <td key={index} className='stockCol'>
                                             <div className="stockContainer">
                                                 <div className="stockLogo">
-                                                    <img src={`/images/${stock.Stock}.svg`} alt={stock.Stock} />
+                                                    {isLoading === true ? (
+                                                        <Skeleton variant="circular" sx={{ bgcolor: '#35363c' }} width={39} height={39} />
+                                                    ) : (
+                                                        <img src={`/images/${stock.Stock}.svg`} alt={stock.Stock} />
+                                                    )}
                                                 </div>
                                                 <div className="stockWrapper">
                                                     <span className="stockTicker">{stock.Stock}</span>
@@ -541,7 +568,40 @@ function Home() {
                                         <td>{stock.RSI}</td>
                                         <td className={getRatingClass(stock.Rating)}>{stock.Rating}</td>
                                     </tr>
-                                ))}
+                                ))) : (
+                                    <React.Fragment>
+                                        {/* Render skeleton rows when sortedStocks is empty */}
+                                        {Array.from({ length: 8 }, (_, i) => (
+                                            <tr key={i}>
+                                                <td className="saveFav">
+                                                    <span className="favSpan">
+                                                    </span>
+                                                </td>
+                                                <td>
+                                                </td>
+                                                <td className="stockCol">
+                                                    <div className="stockContainer">
+                                                        <div className="stockLogo">
+                                                            <Skeleton variant="circular" width={39} height={39} sx={{ bgcolor: '#35363c' }} />
+                                                        </div>
+                                                        <div className="stockWrapper">
+                                                            <Skeleton variant="text" width={80} sx={{ bgcolor: '#35363c' }} />
+                                                            <Skeleton variant="text" width={380} sx={{ bgcolor: '#35363c' }} />
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td><Skeleton variant="text" width={40} sx={{ bgcolor: '#35363c' }} /></td>
+                                                <td><Skeleton variant="text" width={40} sx={{ bgcolor: '#35363c' }} /></td>
+                                                <td><Skeleton variant="text" width={40} sx={{ bgcolor: '#35363c' }} /></td>
+                                                <td><Skeleton variant="text" width={40} sx={{ bgcolor: '#35363c' }} /></td>
+                                                <td><Skeleton variant="text" width={40} sx={{ bgcolor: '#35363c' }} /></td>
+                                                <td><Skeleton variant="text" width={40} sx={{ bgcolor: '#35363c' }} /></td>
+                                                <td><Skeleton variant="text" width={40} sx={{ bgcolor: '#35363c' }} /></td>
+                                                <td><Skeleton variant="text" width={50} sx={{ bgcolor: '#35363c' }} /></td>
+                                            </tr>
+                                        ))}
+                                    </React.Fragment>
+                                )}
                             </tbody>
                         </table>
                     </div>

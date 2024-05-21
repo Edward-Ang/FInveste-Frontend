@@ -20,7 +20,7 @@ function Watchlist() {
     useEffect(() => {
         const getWatchlist = async () => {
             try {
-                const response = await axios.get('http://54.179.119.22:5000/api/get_watchlist');
+                const response = await axios.get('http://localhost:5000/api/get_watchlist');
                 const fetchedWatchlists = response.data;
                 setWatchlists(fetchedWatchlists);
             } catch (error) {
@@ -44,7 +44,7 @@ function Watchlist() {
 
     const handleConfirmDelete = async () => {
         try {
-            const response = await axios.post('http://54.179.119.22:5000/api/delete_watchlist', {
+            const response = await axios.post('http://localhost:5000/api/delete_watchlist', {
                 deleteTarget,
             });
             if (response.data.condition === true) {
@@ -85,7 +85,7 @@ function Watchlist() {
     const handleRename = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://54.179.119.22:5000/api/rename_watchlist', {
+            const response = await axios.post('http://localhost:5000/api/rename_watchlist', {
                 renameTarget,
                 renameInput
             });
