@@ -39,7 +39,7 @@
 
     #filterInput,
     #filterScreenInput {
-        padding-left: 3%;
+        padding-left: 15%;
         font-size: 12px;
     }
 
@@ -160,7 +160,7 @@
         margin-left: 0;
     }
 
-    #defaultScreenName {
+    #defaultScreenName, #watchlistName {
         font-size: 16px;
         font-weight: bold;
     }
@@ -224,6 +224,23 @@
     .criteriaCol {
         padding-left: 2%;
         width: 50px;
+    }
+
+    #confirmPopup, #renamePopup{
+        width: fit-content;
+    }
+
+    #dltCell{
+        height: 60px;
+    }
+
+    #screen-body{
+        padding: 0 8px 0 8px;
+    }
+
+    #screenUtility, #screenTableView{
+        margin: 0;
+        width: 100%;
     }
 
 }

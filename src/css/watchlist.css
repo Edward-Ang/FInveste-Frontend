@@ -200,14 +200,14 @@ Button {
     background-color: var(--hover_red);
 }
 
-#dltCell {
+.dltCell {
     display: flex;
     justify-content: space-around;
     align-items: center;
     height: 53px;
 }
 
-#dltCell Button {
+.dltCell Button {
     width: 33px;
     height: 33px;
 }
