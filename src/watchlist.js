@@ -123,7 +123,7 @@ function Watchlist() {
             <ToastContainer />
             {showDeleteOverlay && (
                 <div className="confirmOverlay" id="deleteOverlay">
-                    <div className="confirmPopup">
+                    <div className="confirmPopup" id='confirmPopup'>
                         <div className="confirmWrapper">
                             <div className="confirmHeader">
                                 <h5>Confirm to delete?</h5>
@@ -140,7 +140,7 @@ function Watchlist() {
             )}
             {showRenameOverlay && (
                 <div className="renameOverlay" id="renameOverlay">
-                    <div className="renamePopup">
+                    <div className="renamePopup" id='renamePopup'>
                         <div className="renameHeader">
                             <h5>Rename watchlist</h5>
                             <button id="renameCloseButton" onClick={handleCancelButton}><i className="bi bi-x-lg"></i></button>
@@ -165,7 +165,7 @@ function Watchlist() {
             )}
             <div id="watchlistWrapper">
                 <div className="utility" id="watchlistUtility">
-                    <h3 id="watchlistName">My watchlist</h3>
+                    <h3 className='watchlistName' id="watchlistName">My watchlist</h3>
                 </div>
                 <div className="tableview" id="wl">
                     <table id="wltable">
@@ -185,7 +185,7 @@ function Watchlist() {
                                     <td id={index}>{watchlists.name}</td>
                                     <td>{watchlists.date}</td>
                                     <td>{watchlists.time}</td>
-                                    <td id='dltCell'>
+                                    <td className='dltCell' id='dltCell'>
                                         <button id='wthButton' onClick={() => handleView(watchlists._id, watchlists.name)}><i className='bi bi-eye'></i></button>
                                         <button id='edtButton' onClick={() => handleEdit(watchlists.name)}><i className='bi bi-pencil-square'></i></button>
                                         <button id='dltButton' onClick={() => handleDelete(watchlists.name)}><i className='bi bi-trash3'></i></button>

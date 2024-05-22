@@ -69,66 +69,68 @@ function Screen() {
     return (
         <>
             <Header searchInput={searchInput} setSearchInput={setSearchInput} />
-            <div className="utility" id="screenUtility">
-                <div className="utilityHeading">
-                    <h3 id="watchlistName">{watchlistName}</h3>
-                </div>
-                <DownloadCSVButton data={sortedStocks} />
-            </div>
-            <div className="body">
-                <div className="spinnerBg" id="spinnerBg">
-                    <div id="spinner" className="spinner">
+            <div className='screen-body' id='screen-body'>
+                <div className="utility" id="screenUtility">
+                    <div className="utilityHeading">
+                        <h3 className='watchlistName' id="watchlistName">{watchlistName}</h3>
                     </div>
+                    <DownloadCSVButton data={sortedStocks} />
                 </div>
-                <div className="tableview" id="screenTableView">
-                    <table id="myTable">
-                        <thead>
-                            <tr className="theader">
-                                <th>#</th>
-                                <th className="Ticker" onClick={() => { handleSort('Name') }}>
-                                    <div className="ndcol" >
-                                        <div className="tickerword">
-                                            Stock
-                                        </div>
-                                    </div>
-                                </th>
-                                <th onClick={() => { handleSort('Open') }}>Open</th>
-                                <th onClick={() => { handleSort('High') }}>High</th>
-                                <th onClick={() => { handleSort('Low') }}>Low</th>
-                                <th onClick={() => { handleSort('Close') }}>Close</th>
-                                <th onClick={() => { handleSort('MA') }}>MA</th>
-                                <th onClick={() => { handleSort('EMA') }}>EMA</th>
-                                <th onClick={() => { handleSort('RSI') }}>RSI</th>
-                                <th onClick={() => { handleSort('RatingNo') }}>Rating</th>
-                            </tr>
-                        </thead>
-                        <tbody id="tableBody">
-                            {sortedStocks.map((stock, index) => (
-                                <tr key={index}>
-                                    <td>{index + 1}</td>
-                                    <td key={index} className='stockCol'>
-                                        <div className="stockContainer">
-                                            <div className="stockLogo">
-                                                <img src={`/images/${stock.Stock}.svg`} alt={stock.Stock} />
-                                            </div>
-                                            <div className="stockWrapper">
-                                                <span className="stockTicker">{stock.Stock}</span>
-                                                <span className="stockName">{stock.Name}</span>
+                <div className="body">
+                    <div className="spinnerBg" id="spinnerBg">
+                        <div id="spinner" className="spinner">
+                        </div>
+                    </div>
+                    <div className="tableview" id="screenTableView">
+                        <table id="myTable">
+                            <thead>
+                                <tr className="theader">
+                                    <th>#</th>
+                                    <th className="Ticker" onClick={() => { handleSort('Name') }}>
+                                        <div className="ndcol" >
+                                            <div className="tickerword">
+                                                Stock
                                             </div>
                                         </div>
-                                    </td>
-                                    <td>{stock.Open}</td>
-                                    <td>{stock.High}</td>
-                                    <td>{stock.Low}</td>
-                                    <td>{stock.Close}</td>
-                                    <td>{stock.MA}</td>
-                                    <td>{stock.EMA}</td>
-                                    <td>{stock.RSI}</td>
-                                    <td className={getRatingClass(stock.Rating)}>{stock.Rating}</td>
+                                    </th>
+                                    <th onClick={() => { handleSort('Open') }}>Open</th>
+                                    <th onClick={() => { handleSort('High') }}>High</th>
+                                    <th onClick={() => { handleSort('Low') }}>Low</th>
+                                    <th onClick={() => { handleSort('Close') }}>Close</th>
+                                    <th onClick={() => { handleSort('MA') }}>MA</th>
+                                    <th onClick={() => { handleSort('EMA') }}>EMA</th>
+                                    <th onClick={() => { handleSort('RSI') }}>RSI</th>
+                                    <th onClick={() => { handleSort('RatingNo') }}>Rating</th>
                                 </tr>
-                            ))}
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody id="tableBody">
+                                {sortedStocks.map((stock, index) => (
+                                    <tr key={index}>
+                                        <td>{index + 1}</td>
+                                        <td key={index} className='stockCol'>
+                                            <div className="stockContainer">
+                                                <div className="stockLogo">
+                                                    <img src={`/images/${stock.Stock}.svg`} alt={stock.Stock} />
+                                                </div>
+                                                <div className="stockWrapper">
+                                                    <span className="stockTicker">{stock.Stock}</span>
+                                                    <span className="stockName">{stock.Name}</span>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>{stock.Open}</td>
+                                        <td>{stock.High}</td>
+                                        <td>{stock.Low}</td>
+                                        <td>{stock.Close}</td>
+                                        <td>{stock.MA}</td>
+                                        <td>{stock.EMA}</td>
+                                        <td>{stock.RSI}</td>
+                                        <td className={getRatingClass(stock.Rating)}>{stock.Rating}</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </>

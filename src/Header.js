@@ -84,7 +84,7 @@ const Header = ({ searchInput, setSearchInput }) => {
             {/* Logout confirmation overlay */}
             {showConfirmLogout && (
                 <div className="confirmOverlay" id="logoutOverlay">
-                    <div className="confirmPopup">
+                    <div className="confirmPopup" id='confirmPopup'>
                         <div className="confirmWrapper">
                             <div className="confirmHeader">
                                 <h5>Confirm to logout?</h5>

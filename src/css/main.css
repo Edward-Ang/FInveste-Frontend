@@ -227,6 +227,12 @@ table {
     background-color: var(--card_black);
 }
 
+.screen-body{
+    width: auto;
+    height: auto;
+    margin-top: 10px;
+}
+
 #screenTableView,
 #screenUtility {
     margin: 0px 10px 0px 10px;

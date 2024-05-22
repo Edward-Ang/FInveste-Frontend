@@ -224,7 +224,7 @@ li {
     transform-style: preserve-3d;
 }
 
-#watchlistName, .defaultScreenName {
+.watchlistName, .defaultScreenName {
     font-size: 24px;
     font-weight: 600;
     color: var(--white);
