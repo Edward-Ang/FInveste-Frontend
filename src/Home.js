@@ -37,18 +37,8 @@ function Home() {
     const defaultRange = [0, 600];
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
-    const [canFetchData, setCanFetchData] = useState(false);
 
     axios.defaults.withCredentials = true;
-
-    useEffect(() => {
-        setIsLoading(true);
-        const timeoutId = setTimeout(() => {
-            setCanFetchData(true);
-        }, 2000);
-
-        return () => clearTimeout(timeoutId);
-    }, []);
 
     const getTable = async () => {
         try {
@@ -63,25 +53,15 @@ function Home() {
     };
 
     useEffect(() => {
-        if (canFetchData) {
-            getTable();
-        }
+        getTable();
 
-        if (triggerEffect) {
-            getTable(); // Trigger the effect if triggerEffect is true
-            setTriggerEffect(false); // Reset triggerEffect to false after triggering
-        }
-    }, [navigate, triggerEffect, canFetchData]);
+    }, [navigate, triggerEffect]);
 
     const filterRating = (stock) => {
-        return (
-            ratingValue === 'All' ||
-            (ratingValue === 'Buy' && stock.Rating === 'Buy') ||
-            (ratingValue === 'Sell' && stock.Rating === 'Sell') ||
-            (ratingValue === 'Strong Buy' && stock.Rating === 'Strong Buy') ||
-            (ratingValue === 'Strong Sell' && stock.Rating === 'Strong Sell') ||
-            (ratingValue === 'Neutral' && stock.Rating === 'Neutral')
-        );
+        if (ratingValue === 'All') {
+            return true;
+        }
+        return stock.Rating === ratingValue;
     };
 
     const filterIndicators = (stock) => {
@@ -531,8 +511,8 @@ function Home() {
                                     <th onClick={() => { handleSort('RatingNo') }}>Rating</th>
                                 </tr>
                             </thead>
-                            <tbody id="tableBody">
-                                {sortedStocks.length > 8 ? (sortedStocks.map((stock, index) => (
+                            {sortedStocks.length > 0 ? (sortedStocks.map((stock, index) => (
+                                <tbody id="tableBody">
                                     <tr key={index}>
                                         <td className="saveFav">
                                             <span
@@ -568,41 +548,18 @@ function Home() {
                                         <td>{stock.RSI}</td>
                                         <td className={getRatingClass(stock.Rating)}>{stock.Rating}</td>
                                     </tr>
-                                ))) : (
-                                    <React.Fragment>
-                                        {/* Render skeleton rows when sortedStocks is empty */}
-                                        {Array.from({ length: 8 }, (_, i) => (
-                                            <tr key={i}>
-                                                <td className="saveFav">
-                                                    <span className="favSpan">
-                                                    </span>
-                                                </td>
-                                                <td>
-                                                </td>
-                                                <td className="stockCol">
-                                                    <div className="stockContainer">
-                                                        <div className="stockLogo">
-                                                            <Skeleton variant="circular" width={39} height={39} sx={{ bgcolor: '#35363c' }} />
-                                                        </div>
-                                                        <div className="stockWrapper">
-                                                            <Skeleton variant="text" width={80} sx={{ bgcolor: '#35363c' }} />
-                                                            <Skeleton variant="text" width={380} sx={{ bgcolor: '#35363c' }} />
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td><Skeleton variant="text" width={40} sx={{ bgcolor: '#35363c' }} /></td>
-                                                <td><Skeleton variant="text" width={40} sx={{ bgcolor: '#35363c' }} /></td>
-                                                <td><Skeleton variant="text" width={40} sx={{ bgcolor: '#35363c' }} /></td>
-                                                <td><Skeleton variant="text" width={40} sx={{ bgcolor: '#35363c' }} /></td>
-                                                <td><Skeleton variant="text" width={40} sx={{ bgcolor: '#35363c' }} /></td>
-                                                <td><Skeleton variant="text" width={40} sx={{ bgcolor: '#35363c' }} /></td>
-                                                <td><Skeleton variant="text" width={40} sx={{ bgcolor: '#35363c' }} /></td>
-                                                <td><Skeleton variant="text" width={50} sx={{ bgcolor: '#35363c' }} /></td>
-                                            </tr>
-                                        ))}
-                                    </React.Fragment>
-                                )}
-                            </tbody>
+                                </tbody>
+                            ))) : (
+                                <tbody id="tableBody">
+                                    <tr>
+                                        <td colSpan="11" className='no-result-td' >
+                                            <div className='no-result'>
+                                                <img src={`/images/no_result.png`} alt='No Result' />
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            )}
                         </table>
                     </div>
                 </div>

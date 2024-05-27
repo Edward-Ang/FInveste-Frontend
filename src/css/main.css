@@ -468,3 +468,20 @@ th:hover {
     align-items: center;
     width: 100%;
 }
+
+.no-result{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.no-result img{
+    height: 400px;
+    width: 400px;
+}
+
+.no-result-td{
+    border: none;
+}
