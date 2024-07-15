@@ -3,8 +3,9 @@ import axios from 'axios';
 import { useNavigate, Link } from 'react-router-dom';
 import { Dropdown, ButtonGroup } from 'react-bootstrap';
 import './css/header.css';
+import { toast } from 'react-toastify';
 
-const Header = ({ searchInput, setSearchInput }) => {
+const Header = ({ searchInput, setSearchInput, isLogin }) => {
     const [showConfirmLogout, setShowConfirmLogout] = useState(false);
     const [showDropdown, setShowDropdown] = useState(false);
     const navigate = useNavigate();
@@ -19,7 +20,7 @@ const Header = ({ searchInput, setSearchInput }) => {
 
     const handleConfirmLogout = async () => {
         try {
-            const response = await axios.get('http://54.179.119.22:5000/api/logout');
+            const response = await axios.get('http://localhost:5000/api/logout');
 
             if (response.data.message === 'Logged out') {
                 // Redirect response from the server
@@ -33,8 +34,18 @@ const Header = ({ searchInput, setSearchInput }) => {
     };
 
     const handleNavigate = () => {
-        navigate('/watchlist');
+        if (isLogin) {
+            navigate('/watchlist');
+        } else {
+            toast.info('Please login first', {
+                position: 'bottom-left'
+            });
+        }
     };
+
+    const handleLogin = () => {
+        navigate('/login');
+    }
 
     const handleDropdown = () => {
         setShowDropdown(!showDropdown);
@@ -59,10 +70,12 @@ const Header = ({ searchInput, setSearchInput }) => {
                             </Dropdown.Toggle>
                             <ul className='dropdownContent' id="dropdownContent">
                                 <li id="watchlistButtonLi">
-                                    <Link to="/watchlist" className='watchlistButton' id="watchlistButton">Watchlist</Link>
+                                    <button className='watchlistButton' id="watchlistButton" onClick={handleNavigate}>Watchlist</button>
                                 </li>
                                 <li id='logoutButtonLi'>
-                                    <button className='accountButton' id="accountButton" onClick={handleLogout}>Logout</button>
+                                    <button className='accountButton' id="accountButton" onClick={isLogin ? handleLogout : handleLogin}>
+                                        {isLogin ? 'Logout' : 'Login'}
+                                    </button>
                                 </li>
                             </ul>
                             {showDropdown && (
@@ -71,8 +84,8 @@ const Header = ({ searchInput, setSearchInput }) => {
                                         <Dropdown.Item as="button" id="watchlistButton" onClick={handleNavigate}>
                                             Watchlist
                                         </Dropdown.Item>
-                                        <Dropdown.Item as="button" id="accountButton" onClick={handleLogout}>
-                                            Logout
+                                        <Dropdown.Item as="button" id="accountButton" onClick={isLogin ? handleLogout : handleLogin}>
+                                            {isLogin ? 'Logout' : 'Login'}
                                         </Dropdown.Item>
                                     </Dropdown.Menu>
                                 </>

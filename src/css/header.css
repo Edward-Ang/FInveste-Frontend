@@ -116,6 +116,8 @@ header {
     padding-right: 8px;
     transition: all 85ms ease-out;
     text-decoration: none;
+    background-color: transparent;
+    border-radius: 0;
 }
 
 #watchlistButtonLi {
