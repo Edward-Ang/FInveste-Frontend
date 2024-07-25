@@ -57,6 +57,7 @@ function Home() {
         try {
             const response = await axios.get('http://54.179.119.22:5000/api/getUserId');
             const userId = response.data.userId;
+            console.log(userId);
             if (userId) {
                 setIsLogin(true);
             } else {
