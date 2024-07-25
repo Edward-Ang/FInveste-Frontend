@@ -43,7 +43,7 @@ function Home() {
 
     const getTable = async () => {
         try {
-            const response = await axios.get('http://localhost:5000/api/get_main', { withCredentials: true });
+            const response = await axios.get('http://54.179.119.22:5000/api/get_main', { withCredentials: true });
             const fetchedStocks = response.data;
             setStocks(fetchedStocks);
         } catch (error) {
@@ -55,7 +55,7 @@ function Home() {
 
     const getUser = async () => {
         try {
-            const response = await axios.get('http://localhost:5000/api/getUserId');
+            const response = await axios.get('http://54.179.119.22:5000/api/getUserId');
             const userId = response.data.userId;
             if (userId) {
                 setIsLogin(true);
@@ -124,12 +124,12 @@ function Home() {
         event.preventDefault();
         setIsLoading(true);
         try {
-            const response = await axios.get('http://localhost:5000/api/getUserId');
+            const response = await axios.get('http://54.179.119.22:5000/api/getUserId');
             const userId = response.data.userId;
 
             if (userId) {
                 try {
-                    const response = await axios.post('http://localhost:5000/api/save_watchlist', {
+                    const response = await axios.post('http://54.179.119.22:5000/api/save_watchlist', {
                         saveName,
                         userId,
                         filteredStocks,
@@ -161,7 +161,7 @@ function Home() {
 
     const handleBookmark = async (stock) => {
         try {
-            const response = await axios.post('http://localhost:5000/api/toggleBookmark', {
+            const response = await axios.post('http://54.179.119.22:5000/api/toggleBookmark', {
                 stock,
             });
 
